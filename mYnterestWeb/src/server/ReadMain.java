@@ -9,11 +9,14 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.xml.stream.XMLStreamException;
 
 
-public class ReadMain implements Runnable{
+
+
+public class ReadMain implements Runnable {
 	
-	final static int TIMER = 10000000*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 10*1000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
@@ -23,105 +26,151 @@ public class ReadMain implements Runnable{
 
 	
 	
-	//-----MAIN----
-	//public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, InterruptedException {
-		
-
-		
-		
+	//public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, InterruptedException, XMLStreamException {
 	
-	
-	@Override
-	public void run() {
-		
-		
-	
-
+	public void run(){
 		
 		myNews = UrlSetter.setUrl();
 		
 		File f = new File ("mynterest.db");
+		
+		TopicArray newTopics = new TopicArray();
 
+		String curTopic;
+		
 		while(true)	{  //ciclo 
 
-
+			newTopics.clear();
+			
+			//System.out.println(newTopics.toString());
+			
+			curTopic = null;
+			
 			//connessione db
+			
 			if(!f.exists()){
 				try {
 					con = DB.createDB();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
+					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}	  
 			else {
 				try {
 					Class.forName("org.sqlite.JDBC");
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
 				}
 				try {
 					con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
 
-			/*String templateDel= "Delete from News";
+	
+			
+			
+			
+			for( News news : myNews){  //scorriamo tutti gli url dei feed
 
-			PreparedStatement statDel=con.prepareStatement(templateDel);
-
-			statDel.executeUpdate();*/
-
-
-			for( News news : myNews){
-
+				curTopic = null;
+				
+				//System.out.println("siamo qui" + curTopic);
 				nc = new NewsCollector(con,news);
 
 				try {
-					nc.newsCollect();
+					curTopic = nc.newsCollect();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
+					e.printStackTrace();
+				} catch (XMLStreamException e) {
+					
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					
 					e.printStackTrace();
 				}
-			}  
-
-
-			StoreFeed sf = new StoreFeed(con);
+				
+				if(curTopic != null && !newTopics.contains(curTopic))	{
+					
+					//System.out.println("siamo qui" + curTopic);
+					
+					newTopics.add(curTopic);
+				}
+				
+				
+			}
+			
+			//in newTopics abbiamo tutti i topic per i quali, nell'iterazione corrente, è stata aggiunta almeno una notiza
+			String templateCheck = "Select email, topic from Users";
+			PreparedStatement statCheck = null;
+			try {
+				statCheck = con.prepareStatement(templateCheck);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			
+			ResultSet rs = null;
+			try {
+				rs = statCheck.executeQuery();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			
+			if (!newTopics.isEmpty()){
+				try {
+					while(rs.next())	{
+						//System.out.println(newTopics.toString());
+						SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
+					}
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+			
+			StoreFeed sf = new StoreFeed(con);  //nonostante noi prendiamo solo notizie recenti di 2 giorni, quelle vecchie rimangono nel db, e vanno rimosse
 			
 			try {
 				sf.deleteOldNews();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
-			
 			
 			
 			try {
 				con.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
+			
+			
+			
+			
+			
 
 			try {
 				Thread.sleep(TIMER);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 		}
-
-		
 
 	/*
     String templateInsert= "select date from News where topic='politica'";

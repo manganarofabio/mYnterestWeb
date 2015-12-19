@@ -46,7 +46,7 @@ public class ServletLogin extends HttpServlet {
 	          
 	    try {
 			if(LogCreateDelUser.logInUser(e, p)){  
-			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
+			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  //urlpattern
 			    rd.forward(request,response);  
 			}  
 			else{  
