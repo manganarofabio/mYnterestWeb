@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamException;
 
 public class ReadMain implements Runnable {
 	
-	final static int TIMER = 10*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 30*1000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
