@@ -10,11 +10,33 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-  
-  
   <listener>
-        <listener-class>server.ServerThread</listener-class>
-   
-    </listener> 
+    <listener-class>server.ServerThread</listener-class>
+  </listener>
+  
+  <servlet>
+    <servlet-name>ServletLogin</servlet-name>
+    <servlet-class>servlet.ServletLogin</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ServletLogin</servlet-name>
+    <url-pattern>/mYnterest/WebContent/ServletLogin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ServletCreate</servlet-name>
+    <servlet-class>servlet.ServletCreate</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ServletCreate</servlet-name>
+    <url-pattern>/mYnterest/WebContent/ServletCreate</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
 </web-app>
-

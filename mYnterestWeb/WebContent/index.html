@@ -46,28 +46,33 @@
 					<section id="banner">
 						<div class="inner">
 							<h2>mYnterest</h2>
-							<p>Another fine responsive<br />
-							site template freebie<br />
-							crafted by <a href="http://html5up.net">HTML5 UP</a>.</p>
+							<p>A Simple News Collector<br />
+							<br />
+							created by Fabio & Matteo
 							
-							
-							
+							<!--  FORM LOGIN FUNZIONANTE -->
+							<form action="ServletLogin" method="post">
 							<div>
-								<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+								<input type="email" name="email" id="demo-email"  placeholder="Email" />
 							</div>
 							
 							<br>
-							
-							
+										
 							<div>
-								<input type="password" name="password" id="password" value="" placeholder="Password" />
+								<input type="password" name="password" id="password"  placeholder="Password" />
 							</div>
 							
 							<br>
-							<ul class="actions">
-								<li><a href="#" class="button special">Sign In</a></li>
-							</ul>
-						</div>
+							<!--  <ul class="actions">  -->
+								<input type="submit" value="Login" class="button special" />  <!--  href="#" class="button special">Sign In</a></li>-->
+							<!--  </ul>  -->
+							
+						     </form>
+						     
+						     <br>
+						     <br>
+						     </div>
+						
 						<a href="#one" class="more scrolly">I'm new</a>
 					</section>
 
@@ -75,27 +80,37 @@
 					<section id="one" class="wrapper style1 special">
 						<div class="inner">
 						
-						<div>
-							<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
-						</div>
+						<!-- FORM CREATE USER -->
+						
+						<form action="ServletCreate" method="post">
 							
 						<br>
 							
 						<div>
-							<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+							<input type="email" name="email" id="email" placeholder="Email" />
 						</div>
-							
+						
+						
 						<br>
-							
-							
 						<div>
-							<input type="password" name="password" id="password" value="" placeholder="Password" />
+							<input type="password" name="password" id="password"  placeholder="Password" />
 						</div>
+						
+						<br>
+						
+						<ul>
+							<li><input type="submit" value="Create" class="button special" /> 
+						</ul>
+						
 								
+						</form>	
+						
+							
 						<br>
-						<ul class="actions">
+					<!-- <ul class="actions">
 							<li><a href="#" class="button special">New User</a></li>
 						</ul>
+						-->	
 							
 							
 						</div>

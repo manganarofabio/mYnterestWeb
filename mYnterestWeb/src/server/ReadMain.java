@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ReadMain implements Runnable{
 	
-	final static int TIMER = 4*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 10000000*1000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
