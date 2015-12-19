@@ -15,7 +15,8 @@ import java.sql.Statement;
 
 
 
-public class LogCreateDelUser {
+public class UserManagement {
+	
 	
 	
 	public static boolean createtUser (String email, String password) throws ClassNotFoundException, SQLException	{
@@ -84,6 +85,29 @@ public class LogCreateDelUser {
 		}
 		con.close();	
 		return false;  //utente non esitente oppure password sbagliata
+	}
+	
+	public static boolean addTopics(String email, String topics) throws SQLException, ClassNotFoundException	{
+		
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+		
+		
+		
+		String templateCheck = "update Users set topic=? where email=?";
+		PreparedStatement statCheck = con.prepareStatement(templateCheck);
+		statCheck.setString(1,topics);
+		statCheck.setString(2,email);
+		
+		
+		if(statCheck.executeUpdate()!=0)	{
+			return true;
+		}
+		
+		else 
+			return false;
+		
 	}
 	
 	

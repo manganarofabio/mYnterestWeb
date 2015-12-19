@@ -15,13 +15,19 @@
 
 <body>
 
+<%=request.getAttribute("email")%> 
+
 
 
 	<section>
 		<h4>topics</h4>
 		
-		<form action="ServletTopicsChoice">
+		<form action="ServletTopicsChoice" method="post">
 		<fieldset>
+		
+		<% String hidden = (String) request.getAttribute("email"); %>
+	
+		<input type="hidden" name="email" value=<%=hidden %>>
 	
 				<div class="6u 12u$(small)">
 					<input type="checkbox" id="idsport" name="sport"> 
@@ -57,6 +63,11 @@
 				</div>
 				
 				</fieldset>
+				
+				<br>
+				
+				
+				<input type="submit" value="OK" class="button special" />
 				
 				</form>
 				

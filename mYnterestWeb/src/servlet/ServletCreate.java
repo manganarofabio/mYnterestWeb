@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.LogCreateDelUser;
+import db.UserManagement;
 
 
 @WebServlet("/ServletCreate")
@@ -46,9 +46,17 @@ public class ServletCreate extends HttpServlet {
 	    System.out.println(p);
 	          
 	    try {
-			if(LogCreateDelUser.createtUser(e, p)){
-			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
-			    rd.forward(request,response);  
+			if(UserManagement.createtUser(e, p)){
+			 		    
+			    request.setAttribute("email", e);
+				//request.setAttribute("password", p);
+			    //RequestDispatcher rd=request.getRequestDispatcher("topicsChoice.html");  //urlpattern
+			    //rd.forward(request,response);  
+			    // response.sendRedirect("topicsChoice.html");
+			    //getServletContext().getRequestDispatcher("/ServletTopicsChoice").forward(request,response);  
+			   // doGet(request, response);
+				
+				  request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
 			}  
 			else{  
 			    out.print("Sorry utente già esistente");  

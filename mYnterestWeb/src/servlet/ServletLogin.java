@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.LogCreateDelUser;
+import db.UserManagement;
 
 
 @WebServlet("/ServletLogin")
@@ -25,8 +25,10 @@ public class ServletLogin extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+			
+		System.out.println("get");
+		  request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	
@@ -45,9 +47,19 @@ public class ServletLogin extends HttpServlet {
 	    System.out.println(p);
 	          
 	    try {
-			if(LogCreateDelUser.logInUser(e, p)){  
-			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  //urlpattern
-			    rd.forward(request,response);  
+			if(UserManagement.logInUser(e, p)){  
+				
+	
+				//request.setAttribute("email", e);
+				//request.setAttribute("password", p);
+			    //RequestDispatcher rd=request.getRequestDispatcher("topicsChoice.html");  //urlpattern
+			    //rd.forward(request,response);  
+			    // response.sendRedirect("topicsChoice.html");
+			    //getServletContext().getRequestDispatcher("/ServletTopicsChoice").forward(request,response);  
+			   // doGet(request, response);
+				
+				//  request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
+			   
 			}  
 			else{  
 			    out.print("Sorry email or password error");  
