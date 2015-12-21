@@ -36,6 +36,9 @@ public class ServletTopicsChoice extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		boolean flagEmail = false;
+		
+		
 		response.setContentType("text/html");  
 	    PrintWriter out = response.getWriter();  
 	    
@@ -43,14 +46,19 @@ public class ServletTopicsChoice extends HttpServlet {
 	    
 	    String e = (String) request.getParameter("email");  //name dell html
 	    
+	    String n = (String) request.getParameter("notifica");
+	    
+	    System.out.println(n);
+	    
+	    if(n != null)
+	    	flagEmail = true;
+	    	
+	    
 	    String topics = "";
 	    
 	    System.out.println(e);
 	    
 	    String sport = request.getParameter("sport");//name dell html  RITORNA la stringa on se è checked
-	    
-	    System.out.println(sport);
-	    
 	    if(sport != null)	{
 	    	System.out.println(sport);
 	    	topics = topics.concat("sport,");
@@ -83,7 +91,7 @@ public class ServletTopicsChoice extends HttpServlet {
 	    System.out.println(topics);
 	    
 	    try {
-			if(UserManagement.addTopics(e, topics))
+			if(UserManagement.addTopics(e, topics, flagEmail))
 				System.out.println("buon fine"); //andiamo alla pagina delle notizie
 		} catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block

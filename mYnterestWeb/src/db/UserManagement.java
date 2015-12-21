@@ -87,18 +87,22 @@ public class UserManagement {
 		return false;  //utente non esitente oppure password sbagliata
 	}
 	
-	public static boolean addTopics(String email, String topics) throws SQLException, ClassNotFoundException	{
+	public static boolean addTopics(String email, String topics, boolean flagEmail) throws SQLException, ClassNotFoundException	{
 		
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 		
+		System.out.println(flagEmail);
 		
 		
-		String templateCheck = "update Users set topic=? where email=?";
+		
+		String templateCheck = "update Users set topic=?, notification=? where email=?";
 		PreparedStatement statCheck = con.prepareStatement(templateCheck);
 		statCheck.setString(1,topics);
-		statCheck.setString(2,email);
+		statCheck.setBoolean(2,flagEmail);   //in realtà nel db mette 1 se == true else 0
+		statCheck.setString(3,email);
+		
 		
 		
 		if(statCheck.executeUpdate()!=0)	{

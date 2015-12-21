@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamException;
 
 public class ReadMain implements Runnable {
 	
-	final static int TIMER = 60000*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 10*1000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
@@ -113,7 +113,7 @@ public class ReadMain implements Runnable {
 			}
 			
 			//in newTopics abbiamo tutti i topic per i quali, nell'iterazione corrente, è stata aggiunta almeno una notiza
-			String templateCheck = "Select email, topic from Users";
+			String templateCheck = "Select email, topic from Users where notification=1";
 			PreparedStatement statCheck = null;
 			try {
 				statCheck = con.prepareStatement(templateCheck);
@@ -133,8 +133,10 @@ public class ReadMain implements Runnable {
 			if (!newTopics.isEmpty()){
 				try {
 					while(rs.next())	{
-						//System.out.println(newTopics.toString());
-						SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
+						System.out.println(rs.getString(1));
+						
+											
+							SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
 					}
 				} catch (SQLException e) {
 					
@@ -161,10 +163,7 @@ public class ReadMain implements Runnable {
 			
 			
 			
-			
-			
-
-			try {
+	      	try {
 				Thread.sleep(TIMER);
 			} catch (InterruptedException e) {
 			
