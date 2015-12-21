@@ -72,7 +72,12 @@ public String getPubDate() {
     this.author = author;
   }*/
 
+  public boolean isValid(){
 
+	  if(this.title.isEmpty() || this.description.isEmpty() || this.link.isEmpty() || this.pubDate.isEmpty()){
+		  return false;}
+	  else return true;
+  }
 
   @Override
   public String toString() {

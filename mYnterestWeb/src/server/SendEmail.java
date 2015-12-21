@@ -61,7 +61,7 @@ public class SendEmail {
 	
 				Transport.send(message);
 	
-				System.out.println("Done");
+				System.out.println("Email inviata");
 	
 			} catch (MessagingException e) {
 				

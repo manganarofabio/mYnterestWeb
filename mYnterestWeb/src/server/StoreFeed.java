@@ -12,7 +12,9 @@ import java.util.Date;
 
 public class StoreFeed {
 	
-	final static int DELETEBEFORE = -2;
+	
+	final static int TWODAYSMILLIS = 1000*60*60*24*2;
+
 	
 	FeedMessage message;
 	Connection con;
@@ -33,7 +35,7 @@ public class StoreFeed {
 
 		if(!rs.next())	{ //se la notizia non è già presente nel db
 
-			if(Conversion.dateConvert(message.getPubDate()).getTime()>d.getTime()-1000*60*60*24*2 && !message.getDescription().isEmpty())	{  //e se la notizia ha pubdate maggiore di 2 giorni fa(d.getTime() mi restituisce la data odierna in millisecondi), inoltre la notizia deve contenere descrizione
+			if(Conversion.dateConvert(message.getPubDate()).getTime()>d.getTime()- TWODAYSMILLIS && message.isValid())	{  //e se la notizia ha pubdate maggiore di 2 giorni fa(d.getTime() mi restituisce la data odierna in millisecondi), inoltre la notizia deve contenere descrizione
 				String templateInsert = "insert into News VALUES (?,?,?,?,?,?)";   //la inseriamo nel db
 				PreparedStatement statInsert=con.prepareStatement(templateInsert);
 				statInsert.setString(1,message.getTitle());
@@ -59,28 +61,6 @@ public class StoreFeed {
 
 
 	
-	public void deleteOldNews () throws SQLException	{
-		
-		
-		//java.util.Date date= new java.util.Date();
-		
-		 
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_YEAR, DELETEBEFORE);
-		long x = cal.getTimeInMillis();
-		
-		//System.out.println(cal.DAY_OF_YEAR);
-		
-		String templateCheck = "Delete from News where date < ?";
-		PreparedStatement statCheck = con.prepareStatement(templateCheck);
-		statCheck.setLong(1, x);
-		
-		statCheck.executeUpdate();
-		/*
-		while(rs.next())	{
-			System.out.println(rs.getDate(1));
-		}
-		*/
-	}
+	
 
 }

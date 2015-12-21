@@ -94,6 +94,8 @@ public class ReadMain implements Runnable {
 				} catch (ParseException e) {
 					
 					e.printStackTrace();
+					
+									
 				} catch (XMLStreamException e) {
 					
 					e.printStackTrace();
@@ -144,10 +146,10 @@ public class ReadMain implements Runnable {
 				}
 			}
 			
-			StoreFeed sf = new StoreFeed(con);  //nonostante noi prendiamo solo notizie recenti di 2 giorni, quelle vecchie rimangono nel db, e vanno rimosse
+		  //nonostante noi prendiamo solo notizie recenti di 2 giorni, quelle vecchie rimangono nel db, e vanno rimosse
 			
 			try {
-				sf.deleteOldNews();
+				nc.deleteOldNews();
 			} catch (SQLException e) {
 				
 				e.printStackTrace();

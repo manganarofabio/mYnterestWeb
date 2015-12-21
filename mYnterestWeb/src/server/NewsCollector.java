@@ -1,14 +1,17 @@
 package server;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Calendar;
 
 import javax.xml.stream.XMLStreamException;
 
 
 public class NewsCollector {
 	
+	final static int DELETEBEFORE = -2;
 	private Connection con;
 	private News news;
 	
@@ -24,7 +27,7 @@ public class NewsCollector {
 
 
 
-	public String newsCollect() throws SQLException, ParseException, XMLStreamException, InterruptedException{
+	public String newsCollect() throws SQLException, XMLStreamException, InterruptedException, ParseException{
 		Feed feed;
 		
 		try	{
@@ -34,7 +37,7 @@ public class NewsCollector {
 		    // System.out.println(feed.getDescription());
 		}
 		catch (XMLStreamException e)	{
-			Thread.sleep(1000*2);
+			Thread.sleep(1000*10);
 			RSSFeedParser parser = new RSSFeedParser(news.getUrl(), news.getTopic(), news.getSource());
 		    feed = parser.readFeed();
 		}
@@ -53,6 +56,31 @@ public class NewsCollector {
 	    System.out.println(curTopic);  //se per il topic corrente è stata trovata una notizia, stampiamo il topic corrente (altrimenti null)
 	    return curTopic;
 	
+	}
+	
+	
+	public void deleteOldNews () throws SQLException	{
+
+
+		//java.util.Date date= new java.util.Date();
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, DELETEBEFORE);
+		long x = cal.getTimeInMillis();
+
+		//System.out.println(cal.DAY_OF_YEAR);
+
+		String templateCheck = "Delete from News where date < ?";
+		PreparedStatement statCheck = con.prepareStatement(templateCheck);
+		statCheck.setLong(1, x);
+
+		statCheck.executeUpdate();
+		/*
+		while(rs.next())	{
+			System.out.println(rs.getDate(1));
+		}
+		 */
 	}
 
 	
