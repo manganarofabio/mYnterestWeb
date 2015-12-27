@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamException;
 
 public class ReadMain implements Runnable {
 	
-	final static int TIMER = 10*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 10000000*1000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
@@ -138,7 +138,7 @@ public class ReadMain implements Runnable {
 						System.out.println(rs.getString(1));
 						
 											
-							SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
+							//SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
 					}
 				} catch (SQLException e) {
 					

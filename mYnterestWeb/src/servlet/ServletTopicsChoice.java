@@ -91,8 +91,12 @@ public class ServletTopicsChoice extends HttpServlet {
 	    System.out.println(topics);
 	    
 	    try {
-			if(UserManagement.addTopics(e, topics, flagEmail))
+			if(UserManagement.addTopics(e, topics, flagEmail)){
 				System.out.println("buon fine"); //andiamo alla pagina delle notizie
+				request.setAttribute("email", e);
+				request.getRequestDispatcher("/news.jsp").forward(request, response);
+			
+			}
 		} catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

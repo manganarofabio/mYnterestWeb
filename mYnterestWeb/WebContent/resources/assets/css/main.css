@@ -1758,6 +1758,7 @@
 		opacity: 0;
 		width: 1em;
 		z-index: -1;
+		
 	}
 
 		input[type="checkbox"] + label,

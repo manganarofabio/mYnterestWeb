@@ -49,18 +49,12 @@ public class ServletLogin extends HttpServlet {
 	    try {
 			if(UserManagement.logInUser(e, p)){  
 				
-	
-				//request.setAttribute("email", e);
-				//request.setAttribute("password", p);
-			    //RequestDispatcher rd=request.getRequestDispatcher("topicsChoice.html");  //urlpattern
-			    //rd.forward(request,response);  
-			    // response.sendRedirect("topicsChoice.html");
-			    //getServletContext().getRequestDispatcher("/ServletTopicsChoice").forward(request,response);  
-			   // doGet(request, response);
+				request.setAttribute("email", e);
 				
-				//  request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
-			   
-			}  
+			    RequestDispatcher rd=request.getRequestDispatcher("/news.jsp");  //urlpattern
+			    rd.forward(request,response);  
+			}
+						   
 			else{  
 			    out.print("Sorry email or password error");  
 			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
