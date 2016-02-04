@@ -13,7 +13,7 @@ import server.FeedMessage;
 
 public class NewsView {
 	
-	final int NUMBEROFNEWS = 3;
+	final int NUMBEROFNEWS = 5;
 	
 	
 	
@@ -48,8 +48,40 @@ public class NewsView {
 		}
 	}
 	
+public List<String> getSources(String email) throws ClassNotFoundException, SQLException{
+		
+		List<String> sources = new ArrayList<String>();
+		String source = "";
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+
+		String templateCheck = "SELECT sources FROM Users where email=?";
+		PreparedStatement statCheck = con.prepareStatement(templateCheck);
+		statCheck.setString(1, email);
+		ResultSet rs = statCheck.executeQuery();
+		
+		if(rs.next()) {
+
+			source = rs.getString("sources");
+			sources= Arrays.asList(source.split("\\s*,\\s*"));
+			
+			con.close();
+			
+			return sources;
+			
+		}
+		
+		else{
+			con.close();
+		
+			return null;
+		}
+	}
+
 	
-	public ArrayList<FeedMessageJSP> getNews(String email, String topic) throws ClassNotFoundException, SQLException{
+	
+	public ArrayList<FeedMessageJSP> getNews(String topic, String source) throws ClassNotFoundException, SQLException{
 		
 		
 		
@@ -59,10 +91,11 @@ public class NewsView {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 
-		String templateGet = "SELECT * FROM News where topic=?  ORDER BY date DESC LIMIT ?";
+		String templateGet = "SELECT * FROM News where topic=? AND sources=? ORDER BY date DESC LIMIT ?";
 		PreparedStatement statGet = con.prepareStatement(templateGet);
 		statGet.setString(1, topic);
-		statGet.setInt(2, NUMBEROFNEWS);
+		statGet.setString(2, source);
+		statGet.setInt(3, NUMBEROFNEWS);
 		ResultSet rs = statGet.executeQuery();
 		
 		
@@ -84,8 +117,9 @@ public class NewsView {
 			
 			
 			
-			message.setSource(rs.getString("source"));
-			System.out.println(message.getSource());
+			//message.setSource(rs.getString("source"));
+			//System.out.println(message.getSource());
+			
 			
 			
 			message.setDate(rs.getTimestamp("date"));

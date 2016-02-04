@@ -28,7 +28,15 @@
 									<div id="menu">
 										<ul>   <!--  da settare le impostazioni del menù -->
 											<li><a href="index.html">Log Out</a></li>
-											<li><a href="">Options</a></li>
+											
+											<form action="ServletOptions" method="post">
+												<fieldset>
+												<br> <input type="submit" value="Options" class="button special" />
+												<% String hidden = (String) request.getAttribute("email"); %>
+												<input type="hidden" name="email" value=<%=hidden %>>
+												</fieldset>
+												
+											</form>
 										</ul>
 									</div>
 								</li>
@@ -51,52 +59,48 @@
 							<div class="inner">
 
 					<%
-						
-						
-						
-						
 						String email = (String) request.getAttribute("email");
 
 						List<String> topics = x.getTopics(email);
-						
+						List<String> sources = x.getSources(email);
 
-						for (String topic : topics){
-							
-							ArrayList<FeedMessageJSP> fm = x.getNews(email, topic);
-							
+						for (String topic : topics) {
 							
 							//TOPIC
-							
-							out.println("<h3>" + topic + "</h3>");
-							
-							for(FeedMessageJSP fmj : fm){
-								
-								//System.out.println(fm.get(0).toString());								
-								
-								//TITOLO
-								out.println("<h5>" + fmj.getTitle() + "</h5>");
-								
-								//DESCRIZIONE
-								
-								out.println("<p>" + fmj.getDescription() + "</p>");
-								
-								//DATA E SORGENTE
-								
-								out.println(fmj.getDate() +"   " + fmj.getSource());
-												
-								//LINK
-								
-								out.println("<a href=\""+fmj.getLink()+"   \">Vai alla notizia completa</a><br><br>");
-								
-																
-							}
-							
-							out.println("<hr /><br>");//linea di separazione tra topic
-							
-						}
 
-						
-						
+							out.println("<h3>" + topic + "</h3>");
+
+							for (String source : sources) {
+
+								ArrayList<FeedMessageJSP> fm = x.getNews(topic, source);
+
+								
+
+								for (FeedMessageJSP fmj : fm) {
+
+									//System.out.println(fm.get(0).toString());								
+
+									//TITOLO
+									out.println("<h5>" + fmj.getTitle() + "</h5>");
+
+									//DESCRIZIONE
+
+									out.println("<p>" + fmj.getDescription() + "</p>");
+
+									//DATA E SORGENTE
+
+									out.println(fmj.getDate() + "   " + source);
+
+									//LINK
+
+									out.println("<a href=\"" + fmj.getLink() + "   \">Vai alla notizia completa</a><br><br>");
+
+								}
+							}
+
+							out.println("<hr /><br>");//linea di separazione tra topic
+
+						}
 					%>
 					
 							</div>

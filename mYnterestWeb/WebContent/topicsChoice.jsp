@@ -29,8 +29,11 @@
 					<input type="hidden" name="email" value=<%=hidden %>>
 
 					<div class="6u 12u$(small)">
+						
 						<input type="checkbox" id="idsport" name="sport"> <label
 							for="idsport">Sport</label>
+							
+							
 					</div>
 					<div class="6u$ 12u$(small)">
 						<input type="checkbox" id="idcronaca" name="cronaca"> <label
@@ -59,6 +62,27 @@
 					<div class="6u$ 12u$(small)">
 						<input type="checkbox" id="idesteri" name="esteri"> <label
 							for="idesteri">Esteri</label>
+					</div>
+					<br>
+					<br>
+					
+					
+					<h2>Fonti</h2>
+						
+						
+					<div class="6u$ 12u$(small)">
+						<input type="checkbox" id="LaRepubblica.it" name="LaRepubblica.it"> <label
+							for="LaRepubblica.it">LaRepubblica.it</label>
+					</div>
+					
+					<div class="6u$ 12u$(small)">
+						<input type="checkbox" id="Corriere.it" name="Corriere.it"> <label
+							for="Corriere.it">Corriere.it</label>
+					</div>
+					
+					<div class="6u$ 12u$(small)">
+						<input type="checkbox" id="LaStampa.it" name="LaStampa.it"> <label
+							for="LaStampa.it">LaStampa.it</label>
 					</div>
 					<br>
 					<br>

@@ -33,9 +33,9 @@ public class UrlSetter {
 		esteri.add("http://www.lastampa.it/esteri/rss.xml");
 		
 		ArrayList<String> tecnologia = new ArrayList<String>();
-		tecnologia.add("http://www.repubblica.it/rss/tecnologia/rss2.0.xml?ref=HRF-1");
+		//tecnologia.add("http://www.repubblica.it/rss/tecnologia/rss2.0.xml?ref=HRF-1");
 		//tecnologia.add();
-		tecnologia.add("http://www.lastampa.it/tecnologia/rss.xml");
+		//tecnologia.add("http://www.lastampa.it/tecnologia/rss.xml");
 		
 		/*ArrayList<String> ambiente = new ArrayList<String>();
 		ambiente.add("http://www.repubblica.it/rss/ambiente/rss2.0.xml?ref=HRF-1");

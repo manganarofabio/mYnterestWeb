@@ -35,7 +35,7 @@ public class StoreFeed {
 
 		if(!rs.next())	{ //se la notizia non è già presente nel db
 
-			if(Conversion.dateConvert(message.getPubDate()).getTime()>d.getTime()- TWODAYSMILLIS && message.isValid())	{  //e se la notizia ha pubdate maggiore di 2 giorni fa(d.getTime() mi restituisce la data odierna in millisecondi), inoltre la notizia deve contenere descrizione
+			//if(Conversion.dateConvert(message.getPubDate()).getTime()>d.getTime()- TWODAYSMILLIS && message.isValid())	{  //e se la notizia ha pubdate maggiore di 2 giorni fa(d.getTime() mi restituisce la data odierna in millisecondi), inoltre la notizia deve contenere descrizione
 				String templateInsert = "insert into News VALUES (?,?,?,?,?,?)";   //la inseriamo nel db
 				PreparedStatement statInsert=con.prepareStatement(templateInsert);
 				statInsert.setString(1,message.getTitle());
@@ -51,7 +51,7 @@ public class StoreFeed {
 				return true;  //se è stata aggiunta una notizia in un certo topic, torniamo true
 			}
 			
-		}
+		//}
 		
 			return false;
 			

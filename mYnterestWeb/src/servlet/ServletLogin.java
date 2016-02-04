@@ -46,6 +46,7 @@ public class ServletLogin extends HttpServlet {
 	    
 	    System.out.println(p);
 	          
+	    if (request.getParameter("login") != null) {
 	    try {
 			if(UserManagement.logInUser(e, p)){  
 				
@@ -56,7 +57,7 @@ public class ServletLogin extends HttpServlet {
 			}
 						   
 			else{  
-			    out.print("Sorry email or password error");  
+			    out.print("Email o password errati");  
 			    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
 			    rd.include(request,response);  
 			}
@@ -69,6 +70,17 @@ public class ServletLogin extends HttpServlet {
 		}  
 	          
 	    out.close();  
+	    
+	}
+	    else{
+	    	System.out.println("fanculo");
+	    	
+	    }
+	
+	
+		
+		
+		
 	}
 
 }

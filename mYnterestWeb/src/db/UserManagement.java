@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 
 
 public class UserManagement {
@@ -45,7 +47,15 @@ public class UserManagement {
 		 }
 		 else {
 			 statCreate.setString(1,email);
-			 statCreate.setString(2,password);
+			 
+			 //encrypt password
+			 
+			 StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+			 String encryptedPassword = passwordEncryptor.encryptPassword(password);
+			 
+			 System.out.println(encryptedPassword);
+			 
+			 statCreate.setString(2,encryptedPassword);
 			 statCreate.execute();
 			 	  	
 			 statCreate.close();
@@ -73,16 +83,26 @@ public class UserManagement {
 		rs = statCheck.executeQuery();
 		if(rs.next()){
 		
+			System.out.println(rs.getString("password"));
+			//decrypt password
 			
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+			
+			
+			//if(rs.getString("password").equals(password))
+		 
 			//l'utente esiste quindi controllo la password
-			if(rs.getString("password").equals(password)){
-				
+			
+			if(passwordEncryptor.checkPassword(password, rs.getString("password"))){ //ritorna true se le passwords coincidono
+				statCheck.close();
 				con.close();
 				return true;  //utente verificato
 			}
 			    
 			
 		}
+		
+		statCheck.close();
 		con.close();	
 		return false;  //utente non esitente oppure password sbagliata
 	}
@@ -106,66 +126,103 @@ public class UserManagement {
 		
 		
 		if(statCheck.executeUpdate()!=0)	{
+			//con.close();
+			statCheck.close();
 			return true;
 		}
 		
-		else 
+		else{
+			con.close();
+		
 			return false;
+		}
+		
+	}
+	
+public static boolean addSources(String email, String sources) throws SQLException, ClassNotFoundException	{
+		
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+		
+		
+		
+		
+		
+		String templateCheck = "update Users set sources=? where email=?";
+		PreparedStatement statCheck = con.prepareStatement(templateCheck);
+		statCheck.setString(1,sources);
+		statCheck.setString(2,email);
+		
+		
+		
+		if(statCheck.executeUpdate()!=0)	{
+			//con.close();       non so perchè ma se lo chiudiamo non va
+			statCheck.close();
+			return true;
+		}
+		
+		else {
+			con.close();
+		
+			return false;
+		}
 		
 	}
 	
 	
-	
-	/*public boolean deleteUserDb(User u) throws SQLException, IOException{
+	public boolean deleteUser(String email) throws SQLException, IOException{
 		
 		//System.out.println("delete ok");
-		int rs;
-		Connection con = MyConnection.connectToUtenti();
 		
-		String templateDelete = "delete from Users where name=?";
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+		
+		
+		
+		String templateCheck = "select * from Users where email=?";
+		PreparedStatement statCheck = con.prepareStatement(templateCheck);
+		statCheck.setString(1,email);
+		
+		String templateDelete = "delete from Users where email=?";
 		PreparedStatement statDelete= con.prepareStatement(templateDelete);
-		statDelete.setString(1,u.getName());
-		rs = statDelete.executeUpdate();
+		statDelete.setString(1,email);
 		
+		ResultSet rs = statCheck.executeQuery();
+		if(rs.next()){
 		
-		if(rs == 1){ //utente cancellato dal db ->elimino la cartella
-			
-			//System.out.println("delete ok");
-			
-			
-		
-			File[] roots = File.listRoots();  //valido per tutti gli os
-			
-			File dir = new File(roots[0] + "InterestOf" + u.getName());
-			
-			Path path = Paths.get(roots[0] + "InterestOf" + u.getName());
-			
-			if(Files.exists(path, LinkOption.NOFOLLOW_LINKS)){
+			if(statDelete.executeUpdate()!= 0){ //utente cancellato dal db 
 				
-							FileUtils.forceDelete(dir);
-							System.out.println("cartella eliminata");
-							
-							con.close();
-							return true;
-							
-			}
-			
-			
-			else{   //cartella già eliminata
+				statCheck.close();
+				statDelete.close();
 				con.close();
 				return true;
+			
+			}
+		
+			
+		else{  
+				statCheck.close();
+				statDelete.close();
+				con.close();
+				return false;
 			}
 			
 		}
-		
-		con.close();
 		return false;
+		
+	
 	}
 	
 	
 	
 
-    */
+    
 
 
 }
