@@ -19,14 +19,24 @@
 
 <%=request.getAttribute("email")%>
 	
-			<h2>Topics</h2>
-		
+					
+						<div class="inner">
+							<h2>mYnterest</h2>
+							<p>Seleziona i topic e le fonti che preferisci</p>
+							
+							</div>
+							
+		<h2>Topic</h2>
 			<form action="ServletTopicsChoice" method="post">
 				<fieldset>
 
-					<% String hidden = (String) request.getAttribute("email"); %>
+					<% String hiddenE = (String) request.getAttribute("email");
+						String hiddenP = (String) request.getAttribute("password");
+					%>
 
-					<input type="hidden" name="email" value=<%=hidden %>>
+					<input type="hidden" name="email" value=<%=hiddenE %>>
+					<input type="hidden" name="password" value=<%=hiddenP %>>
+					
 
 					<div class="6u 12u$(small)">
 						
@@ -97,6 +107,10 @@
 				<br> <input type="submit" value="OK" class="button special" />
 
 			</form>
+			
+						
+					
+			
 
 		
 

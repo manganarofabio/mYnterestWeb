@@ -48,9 +48,20 @@ public class ServletTopicsChoice extends HttpServlet {
 		//valore choicebox  
 
 		String e = (String) request.getParameter("email");  //name dell html
+		
+		String p = (String) request.getParameter("password");
 
 		String n = (String) request.getParameter("notifica");
 
+		//CREAZIONE UTENTE
+		
+		try {
+			UserManagement.createtUser(e, p);
+		} catch (Throwable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		System.out.println(n);
 
 		if(n != null)

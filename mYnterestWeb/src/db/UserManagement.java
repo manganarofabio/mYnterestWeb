@@ -19,19 +19,17 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 public class UserManagement {
 	
-	
-	
-	public static boolean createtUser (String email, String password) throws ClassNotFoundException, SQLException	{
+	public static boolean checkUser(String email) throws Throwable{
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 		
 		
 		String templateCheck = "select * from Users where email=?";//modello di query
-		String templateCreate = "insert into Users (email, password) VALUES (?,?)";
+		
 
 		PreparedStatement statCheck = con.prepareStatement(templateCheck);
-		PreparedStatement statCreate = con.prepareStatement(templateCreate);
+		
 		statCheck.setString(1, email);
 		
 		
@@ -41,6 +39,39 @@ public class UserManagement {
 		 if(rs.next()){
 			 
 			 statCheck.close();
+			 con.close();
+			 return true;    //ritorna true se l'utente esiste già altrimenti torna true
+			 
+		 }
+		 else{
+			 statCheck.close();
+			 con.close();
+		 	 return false;
+		 }
+	}
+	
+	
+	
+	public static boolean createtUser (String email, String password) throws Throwable	{
+		
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+		
+		
+		
+		String templateCreate = "insert into Users (email, password) VALUES (?,?)";
+
+		
+		PreparedStatement statCreate = con.prepareStatement(templateCreate);
+		
+		
+		
+		
+		
+		
+		 if(UserManagement.checkUser(email)){
+			 
+			 
 			 con.close();
 			 return false;    //ritorna falso se l'utente esiste già altrimenti lo crea e torna true
 			 
@@ -171,53 +202,49 @@ public static boolean addSources(String email, String sources) throws SQLExcepti
 	}
 	
 	
-	public boolean deleteUser(String email) throws SQLException, IOException{
-		
-		//System.out.println("delete ok");
+	public static boolean deleteUser(String email, String password) throws SQLException, IOException{
 		
 		try {
-			Class.forName("org.sqlite.JDBC");
+			if(logInUser(email,password)){
+			
+			
+
+				Class.forName("org.sqlite.JDBC");
+				Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+					
+				String templateDelete = "delete from Users where email=?";
+				PreparedStatement statDelete= con.prepareStatement(templateDelete);
+				statDelete.setString(1,email);
+				
+			
+				if(statDelete.executeUpdate()!= 0){ //utente cancellato dal db 
+					
+					
+					statDelete.close();
+					con.close();
+					return true;
+				
+				}
+			
+				
+				else{  
+					
+					statDelete.close();
+					con.close();
+					return false;
+				}
+				
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+	
 		
-		
-		
-		String templateCheck = "select * from Users where email=?";
-		PreparedStatement statCheck = con.prepareStatement(templateCheck);
-		statCheck.setString(1,email);
-		
-		String templateDelete = "delete from Users where email=?";
-		PreparedStatement statDelete= con.prepareStatement(templateDelete);
-		statDelete.setString(1,email);
-		
-		ResultSet rs = statCheck.executeQuery();
-		if(rs.next()){
-		
-			if(statDelete.executeUpdate()!= 0){ //utente cancellato dal db 
-				
-				statCheck.close();
-				statDelete.close();
-				con.close();
-				return true;
-			
-			}
-		
-			
-		else{  
-				statCheck.close();
-				statDelete.close();
-				con.close();
-				return false;
-			}
-			
-		}
 		return false;
-		
 	
 	}
+	
 	
 	
 	

@@ -73,8 +73,25 @@ public class ServletLogin extends HttpServlet {
 	    
 	}
 	    else{
-	    	System.out.println("fanculo");
-	    	
+	    	System.out.println("delete");
+	    	try {
+				if(UserManagement.deleteUser(e, p)){  
+					
+					out.print("Utente eliminato");  
+				    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
+				    rd.include(request,response);  
+				    }
+				else{
+				
+					out.print("Errore");  
+				    RequestDispatcher rd=request.getRequestDispatcher("index.html");  
+				    rd.include(request,response);  
+				
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	    }
 	
 	
@@ -82,5 +99,6 @@ public class ServletLogin extends HttpServlet {
 		
 		
 	}
+	    
 
 }

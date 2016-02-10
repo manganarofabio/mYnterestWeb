@@ -60,10 +60,10 @@ public class ServletCreate extends HttpServlet {
 		else if( p.equals(rp)){
 
 			try {
-				if(UserManagement.createtUser(e, p)){
+				if(! UserManagement.checkUser(e)){
 
 					request.setAttribute("email", e);
-					//request.setAttribute("password", p);
+					request.setAttribute("password", p);
 					//RequestDispatcher rd=request.getRequestDispatcher("topicsChoice.html");  //urlpattern
 					//rd.forward(request,response);  
 					// response.sendRedirect("topicsChoice.html");
@@ -73,16 +73,13 @@ public class ServletCreate extends HttpServlet {
 					request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
 				}  
 				else{  
-					out.print("Sorry utente già esistente");  
+					out.print("Errrrrrrrrrrrrrrrore utente già esistente");  
 					RequestDispatcher rd=request.getRequestDispatcher("index.html");  
 					rd.include(request,response);  
 				}
-			} catch (ClassNotFoundException ex) {
+			} catch (Throwable e1) {
 				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+				e1.printStackTrace();
 			}  
 
 			out.close(); 

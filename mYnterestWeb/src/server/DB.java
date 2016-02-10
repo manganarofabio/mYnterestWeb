@@ -12,7 +12,7 @@ public class DB {
 	
 	public static Connection createDB () throws SQLException, ClassNotFoundException	{
 		
-		File f = new File("mynterest.db");
+		//File f = new File("mynterest.db");
 	
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
