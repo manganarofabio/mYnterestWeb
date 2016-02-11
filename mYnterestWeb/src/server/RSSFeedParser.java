@@ -11,6 +11,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
+import org.jsoup.Jsoup;
+
 
 
 public class RSSFeedParser {
@@ -153,14 +155,16 @@ public class RSSFeedParser {
   public String cleanXMLEvent (String result)	{
 	  String clean = new String();
 	 
+	  clean = Jsoup.parse(result.toString()).text();
 	  
-	  if(result.indexOf("</a>")!= -1)	{
+	  
+	 /* if(result.indexOf("</a>")!= -1)	{
 		
 		  clean = result.substring(result.indexOf("</a>")+4, result.indexOf("</p>"));
 		  return clean;
 	  }
-	  else 
-		  return result;
+	  else */
+		  return clean;
   }
   
   

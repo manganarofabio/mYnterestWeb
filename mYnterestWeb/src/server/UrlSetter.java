@@ -7,81 +7,67 @@ import java.util.ArrayList;
 public class UrlSetter {
 	
 	public static ArrayList<News> setUrl ()	{
+		
+		ArrayList<String> topicNull = new ArrayList<String>();
+		topicNull.add("http://www.repubblica.it/rss/homepage/rss2.0.xml?ref=HRF-1");
+		topicNull.add("http://www.ilsole24ore.com/rss/notizie/attualita.xml");
+		topicNull.add("http://www.avvenire.it/_layouts/Avvenire/feed.aspx?");
+		//topicNull.add("http://www.ilfattoquotidiano.it/feed/");
+		topicNull.add("http://www.ilsecoloxix.it/homepage/rss/homepage.xml");
+		//topicNull.add("http://www.huffingtonpost.it/feeds/verticals/italy/news.xml");
+		
 		ArrayList<String> politica = new ArrayList<String>();
 		politica.add("http://www.repubblica.it/rss/politica/rss2.0.xml?ref=HRF-1");
 		politica.add("http://xml.corriereobjects.it/rss/politica.xml");
 		politica.add("http://www.lastampa.it/italia/politica/rss.xml");
+		politica.add("http://www.ilsole24ore.com/rss/notizie/politica.xml");
 		
 		ArrayList<String> cronaca = new ArrayList<String>();
 		cronaca.add("http://www.repubblica.it/rss/cronaca/rss2.0.xml?ref=HRF-1");
 		cronaca.add("http://xml.corriereobjects.it/rss/cronache.xml");
 		cronaca.add("http://www.lastampa.it/italia/cronache/rss.xml");
+		//cronaca.add("http://www.ilmattino.it/rss/societa.xml");
+		cronaca.add("http://www.ansa.it/sito/notizie/cronaca/cronaca_rss.xml");
+		
 		
 		ArrayList<String> economia = new ArrayList<String>();
 		economia.add("http://www.repubblica.it/rss/economia/rss2.0.xml?ref=HRF-1");
 		economia.add("http://xml.corriereobjects.it/rss/economia.xml");
 		economia.add("http://www.lastampa.it/economia/rss.xml");
+		economia.add("http://www.ilsole24ore.com/rss/notizie/politica-economia.xml");
+		//economia.add("http://ws3.class.it/rssfeed/rss.asmx/RssFeed?tipo=io_artep");
 		
 		ArrayList<String> sport = new ArrayList<String>();
 		sport.add("http://www.repubblica.it/rss/sport/rss2.0.xml?ref=HRF-1");
 		sport.add("http://xml.corriereobjects.it/rss/sport.xml");
 		sport.add("http://www.lastampa.it/sport/rss.xml");
+		//sport.add("http://www.corrieredellosport.it/rss/");
+		sport.add("http://www.gazzetta.it/rss/home.xml");
+		//sport.add("http://www.ilmattino.it/rss/sport.xml");
 		
 		ArrayList<String> esteri = new ArrayList<String>();
 		esteri.add("http://www.repubblica.it/rss/esteri/rss2.0.xml?ref=HRF-1");
 		esteri.add("http://xml.corriereobjects.it/rss/esteri.xml");
 		esteri.add("http://www.lastampa.it/esteri/rss.xml");
-		
-		ArrayList<String> tecnologia = new ArrayList<String>();
-		//tecnologia.add("http://www.repubblica.it/rss/tecnologia/rss2.0.xml?ref=HRF-1");
-		//tecnologia.add();
-		//tecnologia.add("http://www.lastampa.it/tecnologia/rss.xml");
-		
-		/*ArrayList<String> ambiente = new ArrayList<String>();
-		ambiente.add("http://www.repubblica.it/rss/ambiente/rss2.0.xml?ref=HRF-1");
-		ambiente.add("http://xml.corriereobjects.it/rss/ambiente.xml");
-		ambiente.add("http://www.lastampa.it/rss/tuttogreen");*/
-		
-		/*ArrayList<String> motori = new ArrayList<String>();
-		motori.add("http://www.repubblica.it/rss/motori/rss2.0.xml?ref=HRF-1");
-		motori.add("http://xml.corriereobjects.it/rss/motori.xml");
-		//motori.add("http://www.lastampa.it/motori/rss.xml"); ---->VUOTO!!*/
+		esteri.add("http://www.ansa.it/sito/notizie/mondo/mondo_rss.xml");
 		
 		ArrayList<String> scienze = new ArrayList<String>();
 		scienze.add("http://www.repubblica.it/rss/scienze/rss2.0.xml?ref=HRF-1");
 		scienze.add("http://xml.corriereobjects.it/rss/scienze.xml");
-		//scienze.add();
-		
-		/*ArrayList<String> spettacoli = new ArrayList<String>();
-		spettacoli.add("http://www.repubblica.it/rss/spettacoli/rss2.0.xml?ref=HRF-1");
-		spettacoli.add("http://xml.corriereobjects.it/rss/spettacoli.xml");
-		spettacoli.add("http://www.lastampa.it/spettacoli/rss.xml");*/
-		
-		/*ArrayList<String> cultura = new ArrayList<String>();
-		//cultura.add();
-		cultura.add("http://xml.corriereobjects.it/rss/cultura.xml");
-		cultura.add("http://www.lastampa.it/cultura/rss.xml");*/
-		
-		/*ArrayList<String> animali = new ArrayList<String>();
-		//animali.add();
-		animali.add("http://xml.corriereobjects.it/rss/animali.xml");
-		animali.add("http://www.lastampa.it/rss/lazampa");*/
-		
+		scienze.add("http://www.repubblica.it/rss/tecnologia/rss2.0.xml?ref=HRF-1");
+		scienze.add("http://www.lastampa.it/tecnologia/rss.xml");
+		scienze.add("http://www.ansa.it/sito/notizie/tecnologia/tecnologia_rss.xml");
+	
 		ArrayList<News> myNews = new ArrayList<News>();
 		
 		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		
+		list.add(topicNull);
 		list.add(politica);
 		list.add(cronaca);
 		list.add(economia);
 		list.add(sport);
-		//list.add(ambiente);
-		//list.add(animali);
-		//list.add(spettacoli);
-		//list.add(cultura);
-		//list.add(motori);
 		list.add(scienze);
-		list.add(tecnologia);
 		list.add(esteri);
 		
 		for(ArrayList<String> i : list)	{
@@ -126,13 +112,12 @@ public class UrlSetter {
 					myNews.add(new News(j, "scienze"));	
 					continue;
 				}
-				if (i==tecnologia)	{
-					myNews.add(new News(j, "tecnologia"));
-					continue;
-				}
 				if (i==esteri)	{
 					myNews.add(new News(j, "esteri"));	
 					continue;
+				}
+				if(i==topicNull)	{
+					myNews.add(new News(j, null));
 				}
 				
 			}

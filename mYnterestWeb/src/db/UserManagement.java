@@ -170,7 +170,7 @@ public class UserManagement {
 		
 	}
 	
-public static boolean addSources(String email, String sources) throws SQLException, ClassNotFoundException	{
+/*public static boolean addSources(String email, String sources) throws SQLException, ClassNotFoundException	{
 		
 		
 		Class.forName("org.sqlite.JDBC");
@@ -200,7 +200,7 @@ public static boolean addSources(String email, String sources) throws SQLExcepti
 		}
 		
 	}
-	
+	*/
 	
 	public static boolean deleteUser(String email, String password) throws SQLException, IOException{
 		

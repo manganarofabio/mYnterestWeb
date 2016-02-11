@@ -74,7 +74,7 @@ public String getPubDate() {
 
   public boolean isValid(){
 
-	  if(this.title.isEmpty() || this.description.isEmpty() || this.link.isEmpty() || this.pubDate.isEmpty()){
+	  if(this.title.isEmpty() || this.description.isEmpty() || this.link.isEmpty() || this.pubDate.isEmpty() || this.description.length()<4){
 		  return false;}
 	  else return true;
   }

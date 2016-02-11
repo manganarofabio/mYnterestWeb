@@ -39,7 +39,7 @@ public class ServletTopicsChoice extends HttpServlet {
 
 		boolean flagEmail = false;
 		boolean flag = false;
-		boolean flagS = false;
+		
 
 
 		response.setContentType("text/html");  
@@ -70,7 +70,6 @@ public class ServletTopicsChoice extends HttpServlet {
 
 		String topics = "";
 
-		String sources = "";
 
 		System.out.println(e);
 
@@ -118,47 +117,23 @@ public class ServletTopicsChoice extends HttpServlet {
 
 
 
-		//SOURCES
 
-
-
-		String laStampa= request.getParameter("LaStampa.it"); 
-		if(laStampa != null)	{
-			flagS = true;
-			sources = sources.concat("LaStampa.it,");
-		}
-
-		String laRepubblica= request.getParameter("LaRepubblica.it"); 
-		if(laRepubblica != null)	{
-			
-			flagS = true;
-			sources = sources.concat("LaRepubblica.it,");
-		}
-
-		String corriere= request.getParameter("Corriere.it"); 
-		if(corriere != null)	{
-			flagS = true;
-			sources = sources.concat("Corriere.it,");
-		}
-
-
-		System.out.println(sources);
 
 	
 		try {
-			if(flagS && flag && UserManagement.addTopics(e, topics, flagEmail)){
-				if(UserManagement.addSources(e, sources)){
+			if(flag && UserManagement.addTopics(e, topics, flagEmail)){
+			
 					System.out.println("buon fine"); //andiamo alla pagina delle notizie
 					request.setAttribute("email", e);
 					request.getRequestDispatcher("/news.jsp").forward(request, response);
 
 				}
-			}
+			
 			
 			else{
 				 
 			    
-				out.print("Non hai scelto nessun topic o nessuna fonte, scegliere almeno uno di entrambi");
+				out.print("Non hai scelto nessun topic");
 				request.setAttribute("email", e);
 				RequestDispatcher rd=request.getRequestDispatcher("/topicsChoice.jsp");  
 

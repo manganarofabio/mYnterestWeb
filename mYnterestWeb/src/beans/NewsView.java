@@ -48,7 +48,7 @@ public class NewsView {
 		}
 	}
 	
-public List<String> getSources(String email) throws ClassNotFoundException, SQLException{
+/*public List<String> getSources(String email) throws ClassNotFoundException, SQLException{
 		
 		List<String> sources = new ArrayList<String>();
 		String source = "";
@@ -78,10 +78,10 @@ public List<String> getSources(String email) throws ClassNotFoundException, SQLE
 			return null;
 		}
 	}
-
+*/
 	
 	
-	public ArrayList<FeedMessageJSP> getNews(String topic, String source) throws ClassNotFoundException, SQLException{
+	public ArrayList<FeedMessageJSP> getNews(String topic) throws ClassNotFoundException, SQLException{
 		
 		
 		
@@ -91,11 +91,10 @@ public List<String> getSources(String email) throws ClassNotFoundException, SQLE
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 
-		String templateGet = "SELECT * FROM News where topic=? AND sources=? ORDER BY date DESC LIMIT ?";
+		String templateGet = "SELECT * FROM News where topic=? ORDER BY date DESC LIMIT ?";
 		PreparedStatement statGet = con.prepareStatement(templateGet);
 		statGet.setString(1, topic);
-		statGet.setString(2, source);
-		statGet.setInt(3, NUMBEROFNEWS);
+		statGet.setInt(2, NUMBEROFNEWS);
 		ResultSet rs = statGet.executeQuery();
 		
 		
@@ -117,8 +116,8 @@ public List<String> getSources(String email) throws ClassNotFoundException, SQLE
 			
 			
 			
-			//message.setSource(rs.getString("source"));
-			//System.out.println(message.getSource());
+			message.setSource(rs.getString("sources"));
+			System.out.println(message.getSource());
 			
 			
 			

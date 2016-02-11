@@ -62,7 +62,7 @@
 						String email = (String) request.getAttribute("email");
 
 						List<String> topics = x.getTopics(email);
-						List<String> sources = x.getSources(email);
+						
 
 						for (String topic : topics) {
 							
@@ -70,9 +70,9 @@
 
 							out.println("<h3>" + topic + "</h3>");
 
-							for (String source : sources) {
+							
 
-								ArrayList<FeedMessageJSP> fm = x.getNews(topic, source);
+								ArrayList<FeedMessageJSP> fm = x.getNews(topic);
 
 								
 
@@ -89,14 +89,14 @@
 
 									//DATA E SORGENTE
 
-									out.println(fmj.getDate() + "   " + source);
+									out.println(fmj.getDate() + "   " + fmj.getSource());
 
 									//LINK
 
 									out.println("<a href=\"" + fmj.getLink() + "   \">Vai alla notizia completa</a><br><br>");
 
 								}
-							}
+							
 
 							out.println("<hr /><br>");//linea di separazione tra topic
 

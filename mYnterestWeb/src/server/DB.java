@@ -20,12 +20,12 @@ public class DB {
 		Statement stat = con.createStatement();
 		stat.executeUpdate("create table Users (email varchar PRIMARY KEY,"
 												+ "password varchar,"
-												+ "topic varchar DEFAULT 'null',"
-												+ "sources varchar DEFAULT 'null',"
+												+ "topic varchar DEFAULT null,"
 												+ "notification BOOLEAN)");
 		
 		stat.executeUpdate("create table News (title varchar, description varchar, link varchar PRIMARY KEY, topic varchar, sources varchar, date timestamp)");
-	
+		
+		
 		return con;
 	
 	}

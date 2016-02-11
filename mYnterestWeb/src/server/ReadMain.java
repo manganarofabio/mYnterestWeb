@@ -1,6 +1,7 @@
 package server;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,15 +9,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.stream.XMLStreamException;
+
+import NaiveBayesClassifier.NaiveBayes;
+import NaiveBayesClassifier.NaiveBayesTool;
+import NaiveBayesClassifier.TrainingFile;
 
 
 
 
 public class ReadMain implements Runnable {
 	
-	final static int TIMER = 10000000*1000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER =20000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
@@ -85,6 +91,7 @@ public class ReadMain implements Runnable {
 				
 				//System.out.println("siamo qui" + curTopic);
 				nc = new NewsCollector(con,news);
+				
 
 				try {
 					curTopic = nc.newsCollect();
@@ -112,7 +119,97 @@ public class ReadMain implements Runnable {
 				}
 				
 				
+			} //fine for
+			
+			//CREAZIONE TRAINING FILE
+			
+			HashMap<String,File> fileList = new HashMap<String,File>();
+			try {
+				fileList = TrainingFile.Create();
+			} catch (ClassNotFoundException | SQLException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
+			
+			//INDIVIDUAZIONE TOPIC
+			
+			//select delle notizie con topic null
+			
+			NaiveBayesTool nbT = new NaiveBayesTool(fileList);
+			NaiveBayes nb = null;
+			try {
+				nb = new  NaiveBayes(nbT.train());
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			
+
+			String templateSelect = "select title, description, link from News where topic is null";//modello di query
+			String templateUpdate = "update News set topic = ? where link = ?";
+			
+			PreparedStatement statUpdate = null;
+			
+			PreparedStatement statSelect = null;
+			try {
+			 statSelect = con.prepareStatement(templateSelect);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			ResultSet rs = null;
+			try {
+				 rs = statSelect.executeQuery();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String topic;
+			 try {
+				statUpdate = con.prepareStatement(templateUpdate);
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			try {
+				while(rs.next()){
+					
+					topic = nb.predict(rs.getString("title")+ " " + rs.getString("description"));
+					
+					statUpdate.setString(1,topic);
+					statUpdate.setString(2, rs.getString("link"));
+					
+					statUpdate.execute();
+					
+				}
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			//chiusura prepared statement
+			
+			try {
+				statSelect.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				statUpdate.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			
 			
 			//in newTopics abbiamo tutti i topic per i quali, nell'iterazione corrente, è stata aggiunta almeno una notiza
 			String templateCheck = "Select email, topic from Users where notification=1";
@@ -124,9 +221,9 @@ public class ReadMain implements Runnable {
 				e.printStackTrace();
 			}
 			
-			ResultSet rs = null;
+			ResultSet rs1 = null;
 			try {
-				rs = statCheck.executeQuery();
+				rs1 = statCheck.executeQuery();
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
@@ -134,8 +231,8 @@ public class ReadMain implements Runnable {
 			
 			if (!newTopics.isEmpty()){
 				try {
-					while(rs.next())	{
-						System.out.println(rs.getString(1));
+					while(rs1.next())	{
+						System.out.println(rs1.getString(1));
 						
 											
 							//SendEmail.send(rs.getString(1), rs.getString(2), newTopics);

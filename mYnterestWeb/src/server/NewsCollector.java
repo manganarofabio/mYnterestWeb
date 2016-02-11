@@ -46,13 +46,14 @@ public class NewsCollector {
 		    StoreFeed sf = new StoreFeed(con);
 		    
 		    
-	   
+	   if(feed != null)	{
 		for (FeedMessage message : feed.getMessages()) { //scorriamo tutte le notizie all'interno di un feed
 	    	if (sf.storeNews(message))	{
 	    		curTopic = news.getTopic(); //se e stata aggiunta almeno una nuova notizia in un certo topic, ritorniamo il topic
 	    		
 	    	}
 	    }
+	   }
 	    System.out.println(curTopic);  //se per il topic corrente è stata trovata una notizia, stampiamo il topic corrente (altrimenti null)
 	    return curTopic;
 	
