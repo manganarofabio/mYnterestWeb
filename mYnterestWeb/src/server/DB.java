@@ -28,17 +28,17 @@ public class DB {
 		
 		stat.executeUpdate("create table Follow(email varchar REFERENCES Users(email), topicID varchar REFERENCES Topics(topicID), PRIMARY KEY(email, topicID))");
 		
-		stat.execute("insert into Topics (topicID) values('Sport')");
+		stat.execute("insert into Topics (topicID) values('sport')");
 		
-		stat.execute("insert into Topics (topicID) values('Politica')");
+		stat.execute("insert into Topics (topicID) values('politica')");
 		
-		stat.execute("insert into Topics (topicID) values('Cronaca')");
+		stat.execute("insert into Topics (topicID) values('cronaca')");
 		
-		stat.execute("insert into Topics (topicID) values('Economia')");
+		stat.execute("insert into Topics (topicID) values('economia')");
 		
-		stat.execute("insert into Topics (topicID) values('Scienze')");
+		stat.execute("insert into Topics (topicID) values('scienze')");
 		
-		stat.execute("insert into Topics (topicID) values('Esteri')");
+		stat.execute("insert into Topics (topicID) values('esteri')");
 		
 		stat.close();
 		

@@ -87,28 +87,28 @@ public class ServletTopicsChoice extends HttpServlet {
 		String cronaca = request.getParameter("cronaca"); 
 		if(cronaca != null)	{
 			flag = true;
-			topicsList.add("Cronaca");
+			topicsList.add("cronaca");
 		}
 		String politica = request.getParameter("politica"); 
 		if(politica != null)	{
 			flag = true;
-			topicsList.add("Politica");
+			topicsList.add("politica");
 		}
 		
 		String scienze  = request.getParameter("scienze"); 
 		if(scienze != null)	{
 			flag = true;
-			topicsList.add("Scienze");
+			topicsList.add("scienze");
 		}
 		String economia = request.getParameter("economia"); 
 		if(economia != null)	{
 			flag = true;
-			topicsList.add("Economia");
+			topicsList.add("economia");
 		}
 		String esteri = request.getParameter("esteri"); 
 		if(esteri != null)	{
 			flag = true;
-			topicsList.add("Esteri");
+			topicsList.add("esteri");
 		}
 
 
