@@ -54,11 +54,7 @@
 						<input type="checkbox" id="idpolitica" name="politica"> <label
 							for="idpolitica">Politica</label>
 					</div>
-					<div class="6u$ 12u$(small)">
-						<input type="checkbox" id="idtecnologia" name="tecnologia">
-						<label for="idtecnologia">Tecnologia</label>
-					</div>
-
+					
 					<div class="6u$ 12u$(small)">
 						<input type="checkbox" id="idscienze" name="scienze"> <label
 							for="idscienze">Scienze</label>

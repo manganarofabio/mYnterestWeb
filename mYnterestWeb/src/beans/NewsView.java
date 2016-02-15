@@ -17,36 +17,34 @@ public class NewsView {
 	
 	
 	
-	public List<String> getTopics(String email) throws ClassNotFoundException, SQLException{
+	public ArrayList<String> getTopics(String email) throws ClassNotFoundException, SQLException{
 		
-		List<String> topics = new ArrayList<String>();
+		ArrayList<String> topicsList = new ArrayList<String>();
 		String topic = "";
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 
-		String templateCheck = "SELECT topic FROM Users where email=?";
+		String templateCheck = "SELECT topicID FROM Follow where email=?";
 		PreparedStatement statCheck = con.prepareStatement(templateCheck);
 		statCheck.setString(1, email);
 		ResultSet rs = statCheck.executeQuery();
 		
-		if(rs.next()) {
+		while(rs.next()) {
 
-			topic = rs.getString("topic");
-			topics= Arrays.asList(topic.split("\\s*,\\s*"));
-			
-			con.close();
-			
-			return topics;
-			
+			topic = rs.getString("topicID");
+			topicsList.add(topic);
 		}
-		
-		else{
+			
+			
+			statCheck.close();
 			con.close();
-		
-			return null;
-		}
+			return topicsList;
+			
 	}
+		
+		
+	
 	
 /*public List<String> getSources(String email) throws ClassNotFoundException, SQLException{
 		

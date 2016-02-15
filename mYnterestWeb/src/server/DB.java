@@ -20,11 +20,27 @@ public class DB {
 		Statement stat = con.createStatement();
 		stat.executeUpdate("create table Users (email varchar PRIMARY KEY,"
 												+ "password varchar,"
-												+ "topic varchar DEFAULT null,"
 												+ "notification BOOLEAN)");
 		
 		stat.executeUpdate("create table News (title varchar, description varchar, link varchar PRIMARY KEY, topic varchar, sources varchar, date timestamp)");
 		
+		stat.executeUpdate("create table Topics(topicID varchar PRIMARY KEY)");
+		
+		stat.executeUpdate("create table Follow(email varchar REFERENCES Users(email), topicID varchar REFERENCES Topics(topicID), PRIMARY KEY(email, topicID))");
+		
+		stat.execute("insert into Topics (topicID) values('Sport')");
+		
+		stat.execute("insert into Topics (topicID) values('Politica')");
+		
+		stat.execute("insert into Topics (topicID) values('Cronaca')");
+		
+		stat.execute("insert into Topics (topicID) values('Economia')");
+		
+		stat.execute("insert into Topics (topicID) values('Scienze')");
+		
+		stat.execute("insert into Topics (topicID) values('Esteri')");
+		
+		stat.close();
 		
 		return con;
 	

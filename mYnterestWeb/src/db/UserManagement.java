@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
@@ -52,14 +53,14 @@ public class UserManagement {
 	
 	
 	
-	public static boolean createtUser (String email, String password) throws Throwable	{
+	public static boolean createtUser (String email, String password, boolean flagEmail) throws Throwable	{
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 		
 		
 		
-		String templateCreate = "insert into Users (email, password) VALUES (?,?)";
+		String templateCreate = "insert into Users (email, password, notification) VALUES (?,?,?)";
 
 		
 		PreparedStatement statCreate = con.prepareStatement(templateCreate);
@@ -78,6 +79,7 @@ public class UserManagement {
 		 }
 		 else {
 			 statCreate.setString(1,email);
+			 statCreate.setBoolean(3, flagEmail);
 			 
 			 //encrypt password
 			 
@@ -138,37 +140,37 @@ public class UserManagement {
 		return false;  //utente non esitente oppure password sbagliata
 	}
 	
-	public static boolean addTopics(String email, String topics, boolean flagEmail) throws SQLException, ClassNotFoundException	{
+	public static boolean addTopics(String email, ArrayList<String> topicsList) throws SQLException, ClassNotFoundException	{
 		
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 		
-		System.out.println(flagEmail);
+
+		String templateInsert = "insert into Follow(email, topicID) values(?,?)";
+		PreparedStatement statInsert = con.prepareStatement(templateInsert);
 		
+		for(String topic : topicsList){
+			
+			
 		
-		
-		String templateCheck = "update Users set topic=?, notification=? where email=?";
-		PreparedStatement statCheck = con.prepareStatement(templateCheck);
-		statCheck.setString(1,topics);
-		statCheck.setBoolean(2,flagEmail);   //in realtà nel db mette 1 se == true else 0
-		statCheck.setString(3,email);
-		
-		
-		
-		if(statCheck.executeUpdate()!=0)	{
-			//con.close();
-			statCheck.close();
-			return true;
+			
+
+
+			statInsert.setString(1,email);
+			statInsert.setString(2,topic);  
+
+			statInsert.execute();
+			
+			
+			
+			
 		}
 		
-		else{
-			con.close();
+		con.close();
+		return true;
 		
-			return false;
-		}
-		
-	}
+}
 	
 /*public static boolean addSources(String email, String sources) throws SQLException, ClassNotFoundException	{
 		

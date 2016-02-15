@@ -212,7 +212,7 @@ public class ReadMain implements Runnable {
 			
 			
 			//in newTopics abbiamo tutti i topic per i quali, nell'iterazione corrente, è stata aggiunta almeno una notiza
-			String templateCheck = "Select email, topic from Users where notification=1";
+		/*	String templateCheck = "Select email, topic from Users where notification=1";
 			PreparedStatement statCheck = null;
 			try {
 				statCheck = con.prepareStatement(templateCheck);
@@ -242,6 +242,7 @@ public class ReadMain implements Runnable {
 					e.printStackTrace();
 				}
 			}
+			*/
 			
 		  //nonostante noi prendiamo solo notizie recenti di 2 giorni, quelle vecchie rimangono nel db, e vanno rimosse
 			

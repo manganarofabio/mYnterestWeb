@@ -61,7 +61,7 @@
 					<%
 						String email = (String) request.getAttribute("email");
 
-						List<String> topics = x.getTopics(email);
+						ArrayList<String> topics = x.getTopics(email);
 						
 
 						for (String topic : topics) {

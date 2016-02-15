@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,6 +41,8 @@ public class ServletTopicsChoice extends HttpServlet {
 		boolean flagEmail = false;
 		boolean flag = false;
 		
+		ArrayList<String> topicsList = new ArrayList<String>();
+		
 
 
 		response.setContentType("text/html");  
@@ -52,23 +55,23 @@ public class ServletTopicsChoice extends HttpServlet {
 		String p = (String) request.getParameter("password");
 
 		String n = (String) request.getParameter("notifica");
-
-		//CREAZIONE UTENTE
-		
-		try {
-			UserManagement.createtUser(e, p);
-		} catch (Throwable e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		System.out.println(n);
 
 		if(n != null)
 			flagEmail = true;
 
+		//CREAZIONE UTENTE
+		
+		try {
+			UserManagement.createtUser(e, p, flagEmail);
+		} catch (Throwable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 
-		String topics = "";
 
 
 		System.out.println(e);
@@ -77,43 +80,36 @@ public class ServletTopicsChoice extends HttpServlet {
 		if(sport != null)	{
 			flag = true;
 			System.out.println(sport);
-			topics = topics.concat("sport,");
+			topicsList.add("Sport");
+					
 		}
 
 		String cronaca = request.getParameter("cronaca"); 
 		if(cronaca != null)	{
 			flag = true;
-			topics = topics.concat("cronaca,");
+			topicsList.add("Cronaca");
 		}
 		String politica = request.getParameter("politica"); 
 		if(politica != null)	{
 			flag = true;
-			topics = topics.concat("politica,");
+			topicsList.add("Politica");
 		}
-		String tecnologia = request.getParameter("tecnologia"); 
-		if(tecnologia != null)	{
-			flag = true;
-			topics = topics.concat("tecnologia,");
-		}
+		
 		String scienze  = request.getParameter("scienze"); 
 		if(scienze != null)	{
 			flag = true;
-			topics = topics.concat("scienze,");
+			topicsList.add("Scienze");
 		}
 		String economia = request.getParameter("economia"); 
 		if(economia != null)	{
 			flag = true;
-			topics = topics.concat("economia,");
+			topicsList.add("Economia");
 		}
 		String esteri = request.getParameter("esteri"); 
 		if(esteri != null)	{
 			flag = true;
-			topics = topics.concat("esteri,");
+			topicsList.add("Esteri");
 		}
-
-
-
-		System.out.println(topics);
 
 
 
@@ -121,7 +117,7 @@ public class ServletTopicsChoice extends HttpServlet {
 
 	
 		try {
-			if(flag && UserManagement.addTopics(e, topics, flagEmail)){
+			if(flag && UserManagement.addTopics(e, topicsList)){
 			
 					System.out.println("buon fine"); //andiamo alla pagina delle notizie
 					request.setAttribute("email", e);
