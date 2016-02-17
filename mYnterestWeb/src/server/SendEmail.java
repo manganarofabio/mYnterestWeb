@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -20,8 +21,21 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
 
-	public static void send(String to, String myTopics, TopicArray newTopics) {
+	public static void send(String to, TopicArray newTopics, Connection con) throws SQLException {
 
+		ArrayList<String> myTopics = new ArrayList<String>();
+		
+		String templateGet = "Select topicID from Follow where email=?";
+		PreparedStatement statGet = con.prepareStatement(templateGet);
+		
+		statGet.setString(1, to);
+		
+		ResultSet rs = statGet.executeQuery();
+		
+		while(rs.next()){
+			myTopics.add(rs.getString("topicID"));
+		}
+		statGet.close();
 		
 		TopicArray toSend = new TopicArray();
 		

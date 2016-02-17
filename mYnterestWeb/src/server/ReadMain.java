@@ -94,7 +94,7 @@ public class ReadMain implements Runnable {
 				
 
 				try {
-					curTopic = nc.newsCollect();
+					curTopic = nc.newsCollect(); //salviamo il topic della new corrente
 				} catch (SQLException e) {
 					
 					e.printStackTrace();
@@ -204,10 +204,15 @@ public class ReadMain implements Runnable {
 			
 			
 			//in newTopics abbiamo tutti i topic per i quali, nell'iterazione corrente, è stata aggiunta almeno una notiza
-		/*	String templateCheck = "Select email, topic from Users where notification=1";
+			String templateCheck = "Select email from Users where notification=1";
+			
+			
 			PreparedStatement statCheck = null;
+			
 			try {
 				statCheck = con.prepareStatement(templateCheck);
+			
+				
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
@@ -225,16 +230,19 @@ public class ReadMain implements Runnable {
 				try {
 					while(rs1.next())	{
 						System.out.println(rs1.getString(1));
-						
-											
-							//SendEmail.send(rs.getString(1), rs.getString(2), newTopics);
+						SendEmail.send(rs1.getString(1), newTopics, con);
 					}
 				} catch (SQLException e) {
 					
 					e.printStackTrace();
 				}
 			}
-			*/
+			try {
+				statCheck.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		  //nonostante noi prendiamo solo notizie recenti di 2 giorni, quelle vecchie rimangono nel db, e vanno rimosse
 			
