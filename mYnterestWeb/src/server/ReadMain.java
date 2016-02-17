@@ -22,7 +22,7 @@ import NaiveBayesClassifier.TrainingFile;
 
 public class ReadMain implements Runnable {
 	
-	final static int TIMER =20000;  //tempo che il server aspetta prima di aggiornare le notizie
+	final static int TIMER = 10000000;  //tempo che il server aspetta prima di aggiornare le notizie
 	
 	static NewsCollector nc;
 
@@ -56,7 +56,7 @@ public class ReadMain implements Runnable {
 			
 			if(!f.exists()){
 				try {
-					con = DB.createDB();
+				con = DB.createDB();  // ho cancellato che ritorna la connessione
 				} catch (ClassNotFoundException e) {
 					
 					e.printStackTrace();
@@ -125,7 +125,7 @@ public class ReadMain implements Runnable {
 			
 			HashMap<String,File> fileList = new HashMap<String,File>();
 			try {
-				fileList = TrainingFile.Create();
+				fileList = TrainingFile.Create(con);
 			} catch (ClassNotFoundException | SQLException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -147,9 +147,7 @@ public class ReadMain implements Runnable {
 			
 
 			String templateSelect = "select title, description, link from News where topic is null";//modello di query
-			String templateUpdate = "update News set topic = ? where link = ?";
 			
-			PreparedStatement statUpdate = null;
 			
 			PreparedStatement statSelect = null;
 			try {
@@ -166,22 +164,21 @@ public class ReadMain implements Runnable {
 				e1.printStackTrace();
 			}
 			String topic;
-			 try {
-				statUpdate = con.prepareStatement(templateUpdate);
-			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
 			
 			try {
 				while(rs.next()){
 					
-					topic = nb.predict(rs.getString("title")+ " " + rs.getString("description"));
+					String templateUpdate = "update News set topic = ? where link = ?";
+					
+					PreparedStatement statUpdate = con.prepareStatement(templateUpdate);
+					topic = nb.predict(rs.getString("title")+ " " + rs.getString("description")+ " " + rs.getString("link"));
 					
 					statUpdate.setString(1,topic);
 					statUpdate.setString(2, rs.getString("link"));
 					
+				
 					statUpdate.execute();
+					statUpdate.close();
 					
 				}
 			} catch (IllegalArgumentException e1) {
@@ -201,12 +198,7 @@ public class ReadMain implements Runnable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			try {
-				statUpdate.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 			
 			
 			

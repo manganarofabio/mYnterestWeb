@@ -41,7 +41,7 @@ public class UserManagement {
 			 
 			 statCheck.close();
 			 con.close();
-			 return true;    //ritorna true se l'utente esiste già altrimenti torna true
+			 return true;    //ritorna true se l'utente esiste già altrimenti torna false
 			 
 		 }
 		 else{
@@ -70,14 +70,14 @@ public class UserManagement {
 		
 		
 		
-		 if(UserManagement.checkUser(email)){
+		/* if(UserManagement.checkUser(email)){
 			 
 			 
 			 con.close();
 			 return false;    //ritorna falso se l'utente esiste già altrimenti lo crea e torna true
 			 
 		 }
-		 else {
+		 else {*/
 			 statCreate.setString(1,email);
 			 statCreate.setBoolean(3, flagEmail);
 			 
@@ -96,7 +96,7 @@ public class UserManagement {
 			 return true;
 		 }
 	    
-	}
+	//}
 	
 	
 	
@@ -146,11 +146,22 @@ public class UserManagement {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 		
+		//prima cancello le istanze già presenti in Follow
+		
+		String templateDeleteF = "delete from Follow where email = ?";
+		PreparedStatement statDeleteF = con.prepareStatement(templateDeleteF);
+		statDeleteF.setString(1, email);
+				
+		statDeleteF.executeUpdate();
+		statDeleteF.close();
+		
 
-		String templateInsert = "insert into Follow(email, topicID) values(?,?)";
-		PreparedStatement statInsert = con.prepareStatement(templateInsert);
+		
 		
 		for(String topic : topicsList){
+			
+			String templateInsert = "insert into Follow(email, topicID) values(?,?)";
+			PreparedStatement statInsert = con.prepareStatement(templateInsert);
 			
 			
 		
@@ -161,11 +172,13 @@ public class UserManagement {
 			statInsert.setString(2,topic);  
 
 			statInsert.execute();
+			statInsert.close();
 			
 			
 			
 			
 		}
+		
 		
 		con.close();
 		return true;
@@ -214,14 +227,21 @@ public class UserManagement {
 				Class.forName("org.sqlite.JDBC");
 				Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
 					
-				String templateDelete = "delete from Users where email=?";
-				PreparedStatement statDelete= con.prepareStatement(templateDelete);
+				String templateDelete = "delete from Users where email = ?";
+				PreparedStatement statDelete = con.prepareStatement(templateDelete);
 				statDelete.setString(1,email);
+				
+				String templateDeleteF = "delete from Follow where email = ?";
+				PreparedStatement statDeleteF = con.prepareStatement(templateDeleteF);
+				statDeleteF.setString(1, email);
+						
 				
 			
 				if(statDelete.executeUpdate()!= 0){ //utente cancellato dal db 
 					
+					statDeleteF.executeUpdate();
 					
+					statDeleteF.close();
 					statDelete.close();
 					con.close();
 					return true;

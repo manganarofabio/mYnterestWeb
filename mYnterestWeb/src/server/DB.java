@@ -1,6 +1,5 @@
 package server;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -41,8 +40,10 @@ public class DB {
 		stat.execute("insert into Topics (topicID) values('esteri')");
 		
 		stat.close();
-		
+	
 		return con;
+		
+		
 	
 	}
 

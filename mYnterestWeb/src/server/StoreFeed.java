@@ -31,7 +31,8 @@ public class StoreFeed {
 		statCheck.setString(1, message.getLink());
 
 		rs = statCheck.executeQuery();
-		Date d = new Date();
+		
+		//Date d = new Date();
 
 		if(!rs.next())	{ //se la notizia non è già presente nel db
 
@@ -43,16 +44,20 @@ public class StoreFeed {
 				statInsert.setString(3,message.getLink());
 				statInsert.setString(4,message.getTopic());
 				statInsert.setString(5,message.getSource());
+				
 	
 				statInsert.setTimestamp(6, Conversion.dateConvert(message.getPubDate()));
 				
 				statInsert.executeUpdate();
 				
+				statInsert.close();
+				statCheck.close();
+				
 				return true;  //se è stata aggiunta una notizia in un certo topic, torniamo true
 			}
 			
 		}
-		
+			statCheck.close();
 			return false;
 			
 		

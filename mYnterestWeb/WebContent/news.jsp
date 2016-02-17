@@ -27,7 +27,14 @@
 									<a href="#menu" class="menuToggle"><span>Menu</span></a>
 									<div id="menu">
 										<ul>   <!--  da settare le impostazioni del menù -->
-											<li><a href="index.html">Log Out</a></li>
+										
+										<form action="ServletLogout" method="get">
+										<fieldset>
+												<input type="submit" value="Log Out" class="button special" />
+											
+												</fieldset>
+												</form>
+											
 											
 											<form action="ServletOptions" method="post">
 												<fieldset>

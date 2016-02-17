@@ -19,8 +19,35 @@ public class News {
 		if(url.contains("corriere"))	{
 			this.source="Corriere.it";
 		}
+		if(url.contains("corrieredellosport"))	{
+			this.source="CorriereDelloSport.it";
+		}
 		if(url.contains("lastampa"))	{
 			this.source="LaStampa.it";
+		}
+		if(url.contains("ilsole24ore"))	{
+			this.source="IlSole24Ore.com";
+		}
+		if(url.contains("avvenire"))	{
+			this.source="Avvenire.it";
+		}
+		if(url.contains("ilsecoloxix"))	{
+			this.source="IlSecoloXIX.it";
+		}
+		if(url.contains("ansa"))	{
+			this.source="Ansa.it";
+		}
+		if(url.contains("gazzetta"))	{
+			this.source="LaGazzettaDelloSport.it";
+		}
+		if(url.contains("ilfattoquotidiano"))	{
+			this.source="IlFattoQuotidiano.it";
+		}
+		if(url.contains("huffingtonpost"))	{
+			this.source="Huffingtonpost.it";
+		}
+		if(url.contains("ws3.class.it"))	{
+			this.source="ItaliaOggi.it";
 		}
 	
 	}

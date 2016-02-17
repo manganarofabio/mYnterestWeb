@@ -66,7 +66,7 @@ public class ServletTopicsChoice extends HttpServlet {
 		try {
 			UserManagement.createtUser(e, p, flagEmail);
 		} catch (Throwable e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		}
 		
@@ -80,7 +80,7 @@ public class ServletTopicsChoice extends HttpServlet {
 		if(sport != null)	{
 			flag = true;
 			System.out.println(sport);
-			topicsList.add("Sport");
+			topicsList.add("sport");
 					
 		}
 

@@ -127,6 +127,7 @@ public class NewsView {
 			
 		}
 		
+		statGet.close();
 		con.close();
 		
 		System.out.println(topic);

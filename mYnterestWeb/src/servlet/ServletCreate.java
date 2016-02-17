@@ -73,7 +73,7 @@ public class ServletCreate extends HttpServlet {
 					request.getRequestDispatcher("/topicsChoice.jsp").forward(request, response);
 				}  
 				else{  
-					out.print("Errrrrrrrrrrrrrrrore utente già esistente");  
+					out.print("Errore utente già esistente");  
 					RequestDispatcher rd=request.getRequestDispatcher("index.html");  
 					rd.include(request,response);  
 				}
@@ -86,7 +86,7 @@ public class ServletCreate extends HttpServlet {
 		}
 		else{
 			out.print("Password non corrispondenti");
-			RequestDispatcher rd=request.getRequestDispatcher("index.html");  
+			RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
 			rd.include(request,response);  
 		}
 	}

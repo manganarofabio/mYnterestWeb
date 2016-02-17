@@ -55,6 +55,7 @@ public class NewsCollector {
 	    }
 	   }
 	    System.out.println(curTopic);  //se per il topic corrente è stata trovata una notizia, stampiamo il topic corrente (altrimenti null)
+	   
 	    return curTopic;
 	
 	}
@@ -77,11 +78,8 @@ public class NewsCollector {
 		statCheck.setLong(1, x);
 
 		statCheck.executeUpdate();
-		/*
-		while(rs.next())	{
-			System.out.println(rs.getDate(1));
-		}
-		 */
+		statCheck.close();
+		
 	}
 
 	

@@ -12,9 +12,9 @@ public class UrlSetter {
 		topicNull.add("http://www.repubblica.it/rss/homepage/rss2.0.xml?ref=HRF-1");
 		topicNull.add("http://www.ilsole24ore.com/rss/notizie/attualita.xml");
 		topicNull.add("http://www.avvenire.it/_layouts/Avvenire/feed.aspx?");
-		//topicNull.add("http://www.ilfattoquotidiano.it/feed/");
+		topicNull.add("http://www.ilfattoquotidiano.it/feed/");
 		topicNull.add("http://www.ilsecoloxix.it/homepage/rss/homepage.xml");
-		//topicNull.add("http://www.huffingtonpost.it/feeds/verticals/italy/news.xml");
+		topicNull.add("http://www.huffingtonpost.it/feeds/verticals/italy/news.xml");
 		
 		ArrayList<String> politica = new ArrayList<String>();
 		politica.add("http://www.repubblica.it/rss/politica/rss2.0.xml?ref=HRF-1");
@@ -35,15 +35,14 @@ public class UrlSetter {
 		economia.add("http://xml.corriereobjects.it/rss/economia.xml");
 		economia.add("http://www.lastampa.it/economia/rss.xml");
 		economia.add("http://www.ilsole24ore.com/rss/notizie/politica-economia.xml");
-		//economia.add("http://ws3.class.it/rssfeed/rss.asmx/RssFeed?tipo=io_artep");
+		economia.add("http://ws3.class.it/rssfeed/rss.asmx/RssFeed?tipo=io_artep");
 		
 		ArrayList<String> sport = new ArrayList<String>();
 		sport.add("http://www.repubblica.it/rss/sport/rss2.0.xml?ref=HRF-1");
 		sport.add("http://xml.corriereobjects.it/rss/sport.xml");
 		sport.add("http://www.lastampa.it/sport/rss.xml");
-		//sport.add("http://www.corrieredellosport.it/rss/");
+		sport.add("http://www.corrieredellosport.it/rss/");
 		sport.add("http://www.gazzetta.it/rss/home.xml");
-		//sport.add("http://www.ilmattino.it/rss/sport.xml");
 		
 		ArrayList<String> esteri = new ArrayList<String>();
 		esteri.add("http://www.repubblica.it/rss/esteri/rss2.0.xml?ref=HRF-1");

@@ -15,8 +15,7 @@ import java.util.HashMap;
 public class TrainingFile {
 	
 	
-	
-	public static HashMap<String,File> Create () throws ClassNotFoundException, SQLException, IOException	{
+	public static HashMap<String,File> Create (Connection con) throws ClassNotFoundException, SQLException, IOException	{
 	
 		BufferedWriter bw = null;
 		FileWriter fw = null;
@@ -40,48 +39,41 @@ public class TrainingFile {
 		
 	
 		
-		Class.forName("org.sqlite.JDBC");
-		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
-		
-		String templateSelect = "select title, description, link from News where topic = ?";//modello di query
-		PreparedStatement statSelect = con.prepareStatement(templateSelect);
 		
 		for(String key : fileList.keySet()){
+
+			File f = fileList.get(key);
+			if (!f.exists()) {
+				f.createNewFile();// if file doesnt exists, then create it
+
 			
-			System.out.println(key);
-			
-			statSelect.setString(1, key);
-			ResultSet rs = statSelect.executeQuery();
-			
-			 File f = fileList.get(key);
-			 
-				// if file doesnt exists, then create it
-			 if (!f.exists()) {
-				 f.createNewFile();
+
+				String templateSelect = "select title, description, link from News where topic = ?";//modello di query
+				PreparedStatement statSelect = con.prepareStatement(templateSelect);
 
 
-				 fw = new FileWriter(f, true);
-				 bw = new BufferedWriter(fw);
-				 pw = new PrintWriter(bw);
+				statSelect.setString(1, key);
+				ResultSet rs = statSelect.executeQuery();
+				
+				
+				fw = new FileWriter(f, true);
+				bw = new BufferedWriter(fw);
+				pw = new PrintWriter(bw);
 
-				 while(rs.next()){
+				while(rs.next()){
 
-					 //System.out.println(rs.getString("title") + " " + rs.getString("description") + " ");
-					 //System.out.println("---------------------------------------------------------------\n");
-					 pw.println(rs.getString("title") + " " + rs.getString("description") + " " + rs.getString("link"));
+					//System.out.println(rs.getString("title") + " " + rs.getString("description") + " ");
+					//System.out.println("---------------------------------------------------------------\n");
+					pw.println(rs.getString("title") + " " + rs.getString("description") + " " + rs.getString("link"));
 
+				}
 
+				pw.close();
+				bw.close();
+				fw.close();
 
-				 }
-
-				 pw.close();
-				 bw.close();
-				 fw.close();
-			 }
-			 //fw.close();
-			 //bw.close();
-			 //pw.close();
-			 
+				statSelect.close();
+			}
 
 
 		}
