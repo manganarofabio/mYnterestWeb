@@ -1,8 +1,10 @@
+
 <html>
 
+<head>
 
-	<head>
-		<title>mYnterest</title>
+
+		<title>topics</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -11,35 +13,21 @@
 		
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		
-
 	</head>
+
+<body>
+
+<%=request.getAttribute("email")%>
 	
-			<style>
-body {
-        background-image: url("images/topics.jpg");
-} 
- 
-</style>
-	<body class="landing">
-	
-
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-			
-
-				
-
-				<!-- Banner -->
-					<section id="banner">
+					
 						<div class="inner">
 							<h2>mYnterest</h2>
-							<p>Seleziona i Topic che preferisci<br />
-							<br />
+							<p>Seleziona i topic che preferisci</p>
 							
+							</div>
 							
-							<!--  FORM LOGIN FUNZIONANTE -->
-							<form action="ServletTopicsChoice" method="post">
+		<h2>Topic</h2>
+			<form action="ServletTopicsChoice" method="post">
 			<div class="row uniform">
 
 					<% String hiddenE = (String) request.getAttribute("email");
@@ -77,7 +65,7 @@ body {
 						<input type="checkbox" id="idesteri" name="esteri"> <label
 							for="idesteri">Esteri</label>
 							</div>
-					
+					</div>
 					<br>
 					<br>
 					
@@ -86,19 +74,18 @@ body {
 						<input type="checkbox" id="notifica" name="notifica"> <label
 							for="notifica">Notifica via email</label>
 					</div>
-					
-					
-
-				</div>
-				<br> <input type="submit" value="OK" class="button special" />
 
 				
 
+				<br> <input type="submit" value="OK" class="button special" />
+
 			</form>
-						   
-						   </div>
-					</section>
-					</div>
-					</body>
-					</html>
+			
+						
 					
+			
+
+		
+
+</body>
+</html>

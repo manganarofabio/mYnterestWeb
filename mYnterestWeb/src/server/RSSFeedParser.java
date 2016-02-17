@@ -148,7 +148,9 @@ public class RSSFeedParser {
     try {
       return url.openStream();
     } catch (IOException e) {
-      Thread.sleep(10000);
+     System.out.println("exception sleep");
+    	// Thread.sleep(10000);
+    	
       return url.openStream();
     }
   }
