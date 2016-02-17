@@ -55,35 +55,24 @@
 				
 				<jsp:useBean id="x" class="beans.NewsView" scope="session"/>
 				
+				<%
+						String topic = (String) request.getAttribute("topic");
+				%>
+				
 					<article id="main">
 						<header>
 							<h2>My News</h2>
-							<p>Tutte le tue notizie</p>
+							<p>Tutte le tue notizie di <%=topic %> </p>
 						</header>
 						
 						<!--  DA qui cominciano le notizie e va messo il codice java -->
 						<section class="wrapper style5">
 							<div class="inner">
 
-					<%
-						String email = (String) request.getAttribute("email");
+				
+						<% 							
 
-						ArrayList<String> topics = x.getTopics(email);
-						
-
-						for (String topic : topics) {
-							
-							//TOPIC
-
-							out.println("<h3>" + topic + "</h3>"); 
-							
-						
-							
-							
-
-							
-
-								ArrayList<FeedMessageJSP> fm = x.getNews(topic,false);
+						ArrayList<FeedMessageJSP> fm = x.getNews(topic,true);
 
 								
 
@@ -104,31 +93,16 @@
 
 									//LINK
 
-									out.println("<a href=\"" + fmj.getLink() + "   \">Vai alla notizia completa</a><br><br>");
+									out.println("<a href=\"" + fmj.getLink() + "   \">Vai alla notizia completa</a><br>");
+									
+									out.println("<hr />");//linea di separazione tra news
 
 								}
-								
-								%>
-								
-								<form action="ServletMoreNews" method="get">
-								<div>
-								
-								<% String hiddenTopic = topic; %>
-												<input type="hidden" name="topic" value=<%=hiddenTopic%>>
-								
-								
-								<ul class="actions fit small">
-											 <li><input type="submit" name="more" value="Mostra tutte le notizie di <%=topic%> "    class="button special fit small" />
-											</ul>
-											</div>
-											</form>
-								
-								<% 
 							
 
-							out.println("<hr /><br>");//linea di separazione tra topic
+							
 
-						}
+						
 					%>
 					
 							</div>

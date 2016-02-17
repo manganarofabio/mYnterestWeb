@@ -75,7 +75,7 @@ public class NewsView {
 */
 	
 	
-	public ArrayList<FeedMessageJSP> getNews(String topic) throws ClassNotFoundException, SQLException{
+	public ArrayList<FeedMessageJSP> getNews(String topic, boolean allNews) throws ClassNotFoundException, SQLException{
 		
 		
 		
@@ -84,12 +84,33 @@ public class NewsView {
 		
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:mynterest.db");
+		ResultSet rs = null;
+		String templateGet = null;
+		PreparedStatement statGet = null;
+		
+		if(!allNews){
 
-		String templateGet = "SELECT * FROM News where topic=? ORDER BY date DESC LIMIT ?";
-		PreparedStatement statGet = con.prepareStatement(templateGet);
+		templateGet = "SELECT * FROM News where topic=? ORDER BY date DESC LIMIT ?";
+		statGet = con.prepareStatement(templateGet);
+		
+		
 		statGet.setString(1, topic);
 		statGet.setInt(2, NUMBEROFNEWS);
-		ResultSet rs = statGet.executeQuery();
+		rs = statGet.executeQuery();
+		
+		}
+		
+		else{
+			
+			templateGet = "SELECT * FROM News where topic=? ORDER BY date DESC";
+			statGet = con.prepareStatement(templateGet);
+			
+			
+			statGet.setString(1, topic);
+			
+			rs = statGet.executeQuery();
+			
+		}
 		
 		
 		
@@ -147,6 +168,8 @@ public class NewsView {
 		
 	
 	}
+	
+	
 	
 	
 	
