@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import server.FeedMessage;
+
 public class NewsView {
 	
 	final int NUMBEROFNEWS = 5;
@@ -75,11 +77,11 @@ public class NewsView {
 */
 	
 	
-	public ArrayList<FeedMessageJSP> getNews(String topic, boolean allNews) throws ClassNotFoundException, SQLException{
+	public ArrayList<FeedMessage> getNews(String topic, boolean allNews) throws ClassNotFoundException, SQLException{
 		
 		
 		
-		ArrayList<FeedMessageJSP> messList = new ArrayList<FeedMessageJSP>();
+		ArrayList<FeedMessage> messList = new ArrayList<FeedMessage>();
 		
 		
 		Class.forName("org.sqlite.JDBC");
@@ -116,7 +118,7 @@ public class NewsView {
 		
 		while(rs.next()){
 			
-			FeedMessageJSP message = new FeedMessageJSP();
+			FeedMessage message = new FeedMessage();
 			
 			message.setTitle(rs.getString("title"));
 			System.out.println(message.getTitle());
@@ -136,8 +138,8 @@ public class NewsView {
 			
 			
 			
-			message.setDate(rs.getTimestamp("date"));
-			System.out.println(message.getDate());
+			message.setPubDate(rs.getTimestamp("date").toString());
+			System.out.println(message.getPubDate());
 			
 			System.out.println("stampo il messaggio: " + message.toString() );
 			
@@ -156,7 +158,7 @@ public class NewsView {
 	
 		
 		System.out.println(messList.size());
-		for(FeedMessageJSP fm : messList)
+		for(FeedMessage fm : messList)
 			System.out.println(fm.toString());
 		
 		

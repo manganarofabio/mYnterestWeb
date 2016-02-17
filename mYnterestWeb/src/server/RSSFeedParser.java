@@ -41,7 +41,7 @@ public class RSSFeedParser {
     }
   }
 
-  public Feed readFeed() throws XMLStreamException {
+  public Feed readFeed() throws XMLStreamException, InterruptedException, IOException {
     Feed feed = null;
     
       boolean isFeedHeader = true;
@@ -144,11 +144,12 @@ public class RSSFeedParser {
     return cleanXMLEvent(result);
   }
 
-  private InputStream read() {
+  private InputStream read() throws InterruptedException, IOException {
     try {
       return url.openStream();
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      Thread.sleep(10000);
+      return url.openStream();
     }
   }
   

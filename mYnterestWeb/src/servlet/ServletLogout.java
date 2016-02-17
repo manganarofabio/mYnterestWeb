@@ -3,8 +3,11 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,17 +32,14 @@ public class ServletLogout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 response.setContentType("text/html");  
-         PrintWriter out=response.getWriter();  
-           
-         request.getRequestDispatcher("/index.html").include(request, response);  
-           
-         HttpSession session=request.getSession();  
-         session.invalidate();  
-           
-         out.print("You are successfully logged out!");  
-           
-         out.close();
+		response.setHeader("Cache-Control","no-cache");
+		response.setHeader("Cache-Control","no-store");
+		response.setHeader("Pragma","no-cache");
+		response.setDateHeader ("Expires", 0);
+		    
+			if(request.getAttribute("token")==null){
+		    response.sendRedirect(request.getContextPath() + "/index.html");
+		    }
 	}
 
 	/**

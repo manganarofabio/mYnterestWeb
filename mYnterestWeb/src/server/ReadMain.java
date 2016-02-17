@@ -109,6 +109,9 @@ public class ReadMain implements Runnable {
 				} catch (InterruptedException e) {
 					
 					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 				if(curTopic != null && !newTopics.contains(curTopic))	{

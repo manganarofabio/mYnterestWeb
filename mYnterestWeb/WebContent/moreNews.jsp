@@ -2,7 +2,7 @@
 
 
 <%@ page import ="java.util.*" %>
-<%@ page import ="beans.FeedMessageJSP" %>
+<%@ page import ="server.FeedMessage" %>
 <html>
 	<head>
 		<title>MY NEWS</title>
@@ -72,11 +72,11 @@
 				
 						<% 							
 
-						ArrayList<FeedMessageJSP> fm = x.getNews(topic,true);
+						ArrayList<FeedMessage> fm = x.getNews(topic,true);
 
 								
 
-								for (FeedMessageJSP fmj : fm) {
+								for (FeedMessage fmj : fm) {
 
 									//System.out.println(fm.get(0).toString());								
 
@@ -89,7 +89,7 @@
 
 									//DATA E SORGENTE
 
-									out.println(fmj.getDate() + "   " + fmj.getSource());
+									out.println(fmj.getPubDate() + "   " + fmj.getSource());
 
 									//LINK
 

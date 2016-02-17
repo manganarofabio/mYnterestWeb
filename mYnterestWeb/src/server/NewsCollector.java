@@ -1,5 +1,6 @@
 package server;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class NewsCollector {
 
 
 
-	public String newsCollect() throws SQLException, XMLStreamException, InterruptedException, ParseException{
+	public String newsCollect() throws SQLException, XMLStreamException, InterruptedException, ParseException, IOException{
 		Feed feed;
 		
 		try	{
