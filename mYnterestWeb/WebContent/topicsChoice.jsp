@@ -15,13 +15,8 @@
 
 	</head>
 	
-			<style>
-body {
-        background-image: url("images/topics.jpg");
-} 
- 
-</style>
-	<body class="landing">
+
+	<body class="landing2">
 	
 
 		<!-- Page Wrapper -->
