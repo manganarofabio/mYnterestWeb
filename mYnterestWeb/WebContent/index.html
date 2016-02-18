@@ -1,137 +1,125 @@
-
 <html>
-	<head>
-		<title>mYnterest</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		
-		<link rel="stylesheet" href="resources/assets/css/main.css" />
-		
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
-	<body class="landing">
+<head>
+<title>mYnterest</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-			
+<link rel="stylesheet" href="resources/assets/css/main.css" />
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="index.html">mYnterest</a></h1>
-						<nav id="nav">
-						<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>   <!--  da settare le impostazioni del menù -->
-											<li><a href="delete.html">Elimina utente</a></li>				
-										
-										</ul>
-									</div>
-								</li>
+
+</head>
+<body class="landing">
+
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<h1>
+				<a href="index.html">mYnterest</a>
+			</h1>
+			<nav id="nav">
+				<ul>
+					<li class="special"><a href="#menu" class="menuToggle"><span>Menu</span></a>
+						<div id="menu">
+							<ul>
+								<li><a href="delete.html">Elimina utente</a></li>
+
 							</ul>
-							
-						</nav>
-					</header>
+						</div></li>
+				</ul>
 
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<h2>mYnterest</h2>
-							<p>A Simple News Collector<br />
-							<br />
-							
-							
-							<!--  FORM LOGIN FUNZIONANTE -->
-							<form action="ServletLogin" method="post">
-							<div>
-								<input type="email" name="email" id="demo-email"  placeholder="Email" />
-							</div>
-							
-							<br>
-										
-							<div>
-								<input type="password" name="password" id="password"  placeholder="Password" />
-							</div>
-							
-							<br>
-							<!--  <ul class="actions">  -->
-								<input type="submit" name="login" value="LOGIN" class="button special" /> <!--  href="#" class="button special">Sign In</a></li>-->
-							<!--  </ul>  -->
-							
-						     </form>
-						     
-						     <br>
-						     <br>
-						     </div>
-						
-						<a href="#one" class="more scrolly">I'm new</a>
-					</section>
+			</nav>
+		</header>
 
-				<!-- One -->
-					<section id="one" class="wrapper style1 special">
-						<div class="inner">
-						
-						<!-- FORM CREATE USER -->
-						
-						<form action="ServletCreate" method="post">
-							
-						<br>
-							
-						<div>
-							<input type="email" name="email" id="email" placeholder="Email" />
-						</div>
-						
-						
-						<br>
-						<div>
-							<input type="password" name="password" id="password"  placeholder="Password" />
-						</div>
-						
-						<br>
-						
-						<div>
-							<input type="password" name="repassword" id="password"  placeholder="Conferma Password" />
-						</div>
-						
-						<br><input type="submit" value="Create" class="button special">
-						
-						<ul>
-							<li> 
-						</ul>
-						
-								
-						</form>	
-						
-							
-						<br>
-					<!-- <ul class="actions">
-							<li><a href="#" class="button special">New User</a></li>
-						</ul>
-						-->	
-							
-							
-						</div>
-					</section>
+		<!-- Banner -->
+		<section id="banner">
+			<div class="inner">
+				<h2>mYnterest</h2>
+				<p>
+					A Simple News Collector<br /> <br />
 
-				
-				<!-- Footer -->
-					<footer id="footer">
-						
-					</footer>
 
+					<!--  FORM LOGIN -->
+				<form action="ServletLogin" method="post">
+					<div>
+						<input type="email" name="email" id="demo-email"
+							placeholder="Email" />
+					</div>
+
+					<br>
+
+					<div>
+						<input type="password" name="password" id="password"
+							placeholder="Password" />
+					</div>
+
+					<br> <input type="submit" name="login" value="LOGIN"
+						class="button special" />
+
+				</form>
+
+				<br> <br>
 			</div>
 
-		<!-- Scripts -->
-			<script src="resources/assets/js/jquery.min.js"></script>
-			<script src="resources/assets/js/jquery.scrollex.min.js"></script>
-			<script src="resources/assets/js/jquery.scrolly.min.js"></script>
-			<script src="resources/assets/js/skel.min.js"></script>
-			<script src="resources/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="resources/assets/js/main.js"></script>
+			<a href="#one" class="more scrolly">Sono nuovo</a>
+		</section>
 
-	</body>
+		<!-- One -->
+		<section id="one" class="wrapper style1 special">
+			<div class="inner">
+
+				<!-- FORM CREATE USER -->
+
+				<form action="ServletCreate" method="post">
+
+					<br>
+
+					<div>
+						<input type="email" name="email" id="email" placeholder="Email" />
+					</div>
+
+
+					<br>
+					<div>
+						<input type="password" name="password" id="password"
+							placeholder="Password" />
+					</div>
+
+					<br>
+
+					<div>
+						<input type="password" name="repassword" id="password"
+							placeholder="Conferma Password" />
+					</div>
+
+					<br>
+					<input type="submit" value="Create" class="button special">
+
+					<ul>
+						<li>
+					</ul>
+
+				</form>
+				<br>
+
+			</div>
+		</section>
+
+
+		<!-- Footer -->
+		<footer id="footer"> </footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="resources/assets/js/jquery.min.js"></script>
+	<script src="resources/assets/js/jquery.scrollex.min.js"></script>
+	<script src="resources/assets/js/jquery.scrolly.min.js"></script>
+	<script src="resources/assets/js/skel.min.js"></script>
+	<script src="resources/assets/js/util.js"></script>
+	<script src="resources/assets/js/main.js"></script>
+
+</body>
 </html>

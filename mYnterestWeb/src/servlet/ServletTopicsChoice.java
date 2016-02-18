@@ -15,73 +15,60 @@ import javax.servlet.http.HttpServletResponse;
 import db.UserManagement;
 
 /**
- * Servlet implementation class ServletTopicsChoice
+ * Classe per la gestione Web della selezione 
+ * dei topic preferiti di un utente
  */
 @WebServlet("/ServletTopicsChoice")
 public class ServletTopicsChoice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public ServletTopicsChoice() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
+	/** costruttore **/
+	public ServletTopicsChoice() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		boolean flagEmail = false;
 		boolean flag = false;
-		
-		ArrayList<String> topicsList = new ArrayList<String>();
-		
 
+		ArrayList<String> topicsList = new ArrayList<String>();
 
 		response.setContentType("text/html");  
 		PrintWriter out = response.getWriter();  
 
-		//valore choicebox  
+		String e = (String) request.getParameter("email");  
 
-		String e = (String) request.getParameter("email");  //name dell html
-		
 		String p = (String) request.getParameter("password");
 
 		String n = (String) request.getParameter("notifica");
-		
-		System.out.println(n);
+
+		System.out.println("email: " + e);
 
 		if(n != null)
 			flagEmail = true;
 
-		//CREAZIONE UTENTE
-		
 		try {
 			UserManagement.createtUser(e, p, flagEmail);
 		} catch (Throwable e1) {
-		
+
 			e1.printStackTrace();
 		}
-		
-		
 
 
-
-		System.out.println(e);
-
-		String sport = request.getParameter("sport");//name dell html  RITORNA la stringa on se è checked
+		String sport = request.getParameter("sport");
 		if(sport != null)	{
 			flag = true;
-			System.out.println(sport);
 			topicsList.add("sport");
-					
+
 		}
 
 		String cronaca = request.getParameter("cronaca"); 
@@ -94,7 +81,7 @@ public class ServletTopicsChoice extends HttpServlet {
 			flag = true;
 			topicsList.add("politica");
 		}
-		
+
 		String scienze  = request.getParameter("scienze"); 
 		if(scienze != null)	{
 			flag = true;
@@ -111,39 +98,27 @@ public class ServletTopicsChoice extends HttpServlet {
 			topicsList.add("esteri");
 		}
 
-
-
-
-
-	
 		try {
 			if(flag && UserManagement.addTopics(e, topicsList)){
-			
-					System.out.println("buon fine"); //andiamo alla pagina delle notizie
-					request.setAttribute("email", e);
-					request.getRequestDispatcher("/news.jsp").forward(request, response);
 
-				}
-			
-			
+				request.setAttribute("email", e);
+				request.getRequestDispatcher("/news.jsp").forward(request, response);
+
+			}
+
 			else{
-				 
-			    
+
 				out.print("Non hai scelto nessun topic");
 				request.setAttribute("email", e);
 				RequestDispatcher rd=request.getRequestDispatcher("/topicsChoice.jsp");  
 
 				rd.include(request,response);
-				}
-			
+			}
+
 		} catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-
-
-
 
 
 	}

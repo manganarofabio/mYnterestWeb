@@ -111,5 +111,4 @@ public class UrlSetter {
 		return myNews;
 	}
 
-
 }

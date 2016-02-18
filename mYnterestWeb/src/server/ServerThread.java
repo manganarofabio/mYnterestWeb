@@ -28,7 +28,5 @@ public class ServerThread implements ServletContextListener{
 
 		t.start();
 
-
 	}
-
 }

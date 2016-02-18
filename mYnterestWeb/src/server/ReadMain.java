@@ -29,7 +29,7 @@ public class ReadMain implements Runnable {
 
 
 	/* tempo che il server aspetta prima di aggiornare le notizie == 1 giorno */
-	final static int TIMER = 24*60*60*1000;  
+	final static long TIMER = 24*60*60*1000;  
 
 	static NewsCollector nc;
 
@@ -39,7 +39,7 @@ public class ReadMain implements Runnable {
 
 
 
-	/* metodo che avvia il server */
+	/** metodo che avvia il server **/
 	public void run(){
 
 		myNews = UrlSetter.setUrl();
@@ -279,8 +279,5 @@ public class ReadMain implements Runnable {
 
 
 	}
-
-
-
 
 } 

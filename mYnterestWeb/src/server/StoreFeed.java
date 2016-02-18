@@ -59,9 +59,6 @@ public class StoreFeed {
 		statCheck.close();
 		return false;
 
-
-
 	}
-
 
 }
