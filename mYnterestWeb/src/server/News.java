@@ -1,18 +1,22 @@
 package server;
 
+/**
+ * Classe che rappresenta una fonte di News
+ *
+ */
 public class News {
-	
+
 	private String url;
 	private String topic;
 	private String source;
-	
-	
+
+	/** costruttore in cui si identifica la fonte della News **/
 	public News(String url, String topic) {
 		super();
 		this.url = url;
 		this.topic = topic;
 		//this.source = source;
-		
+
 		if(url.contains("repubblica"))	{
 			this.source="LaRepubblica.it";
 		}
@@ -49,7 +53,7 @@ public class News {
 		if(url.contains("ws3.class.it"))	{
 			this.source="ItaliaOggi.it";
 		}
-	
+
 	}
 
 
@@ -81,7 +85,7 @@ public class News {
 	public void setSource(String source) {
 		this.source = source;
 	};
-	
-	
+
+
 
 }

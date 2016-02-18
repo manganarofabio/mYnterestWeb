@@ -1,89 +1,82 @@
 package server;
 
-/*
- * Represents one RSS message
+/**
+ * Classe che rappresenta una notizia di un Feed Rss 
  */
 public class FeedMessage {
 
-  String title;
-  String description;
-  String link;
-  String author;
-  String guid;
-  String pubDate;
-  String topic;
-  String source;
-  
-  
+	String title;
+	String description;
+	String link;
+	String author;
+	String guid;
+	String pubDate;
+	String topic;
+	String source;
 
-  public String getSource() {
-	return source;
-}
 
-public void setSource(String source) {
-	this.source = source;
-}
 
-public String getTopic() {
-	return topic;
-}
+	public String getSource() {
+		return source;
+	}
 
-public void setTopic(String topic) {
-	this.topic = topic;
-}
+	public void setSource(String source) {
+		this.source = source;
+	}
 
-public String getPubDate() {
-	return pubDate;
-  }
+	public String getTopic() {
+		return topic;
+	}
 
-  public void setPubDate(String pubDate) {
-	this.pubDate = pubDate;
-  }
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
 
-  public String getTitle() {
-    return title;
-  }
+	public String getPubDate() {
+		return pubDate;
+	}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	public void setPubDate(String pubDate) {
+		this.pubDate = pubDate;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public String getTitle() {
+		return title;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-  public String getLink() {
-    return link;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public void setLink(String link) {
-    this.link = link;
-  }
-/*
-  public String getAuthor() {
-    return author;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setAuthor(String author) {
-    this.author = author;
-  }*/
+	public String getLink() {
+		return link;
+	}
 
-  public boolean isValid(){
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-	  if(this.title.isEmpty() || this.description.isEmpty() || this.link.isEmpty() || this.pubDate.isEmpty() || this.title.length()<4 || this.description.length()<4){
-		  return false;}
-	  else return true;
-  }
+	/** metodo per verificare la validità della notizia **/
+	public boolean isValid(){
 
-  @Override
-  public String toString() {
-    return "FeedMessage [title=" + title + ", description=" + description
-        + ", link=" + link + ", pubDate=" + pubDate
-        + "]";
-  }
+		if(this.title.isEmpty() || this.description.isEmpty() || this.link.isEmpty() || this.pubDate.isEmpty() || this.title.length()<4 || this.description.length()<4){
+			return false;}
+		else return true;
+	}
+
+	@Override
+	public String toString() {
+		return "FeedMessage [title=" + title + ", description=" + description
+				+ ", link=" + link + ", pubDate=" + pubDate
+				+ "]";
+	}
 
 } 

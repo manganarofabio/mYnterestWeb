@@ -10,15 +10,19 @@ import java.util.Calendar;
 import javax.xml.stream.XMLStreamException;
 
 
+/**
+ * Classe per la raccolta delle notizie dai relativi URL 
+ *
+ */
 public class NewsCollector {
-	
+
 	final static int DELETEBEFORE = -2;
 	private Connection con;
 	private News news;
-	
 
 
-	
+
+	/** costruttore **/
 	public NewsCollector(Connection con, News news) {
 		super();
 		this.con = con;
@@ -27,52 +31,52 @@ public class NewsCollector {
 
 
 
-
+	/** metodo che raccoglie le notizie **/
 	public String newsCollect() throws SQLException, XMLStreamException, InterruptedException, ParseException, IOException{
+
 		Feed feed;
-		
+
 		try	{
 			RSSFeedParser parser = new RSSFeedParser(news.getUrl(), news.getTopic(), news.getSource());
-		    feed = parser.readFeed();
-		    // System.out.println(feed);
-		    // System.out.println(feed.getDescription());
+			feed = parser.readFeed();
+
 		}
 		catch (XMLStreamException e)	{
+			/* in caso di eccezione attendiamo 10s e ripetiamo */
 			Thread.sleep(1000*10);
 			RSSFeedParser parser = new RSSFeedParser(news.getUrl(), news.getTopic(), news.getSource());
-		    feed = parser.readFeed();
-		}
-		    String curTopic = null;
+			feed = parser.readFeed();
 
-		    StoreFeed sf = new StoreFeed(con);
-		    
-		    
-	   if(feed != null)	{
-		for (FeedMessage message : feed.getMessages()) { //scorriamo tutte le notizie all'interno di un feed
-	    	if (sf.storeNews(message))	{
-	    		curTopic = news.getTopic(); //se e stata aggiunta almeno una nuova notizia in un certo topic, ritorniamo il topic
-	    		
-	    	}
-	    }
-	   }
-	    System.out.println(curTopic);  //se per il topic corrente è stata trovata una notizia, stampiamo il topic corrente (altrimenti null)
-	   
-	    return curTopic;
-	
+		}
+		String curTopic = null;
+
+		StoreFeed sf = new StoreFeed(con);
+
+		/* scorriamo tutte le notizie all'interno di un feed */	    
+		if(feed != null)	{
+			for (FeedMessage message : feed.getMessages()) { 
+				if (sf.storeNews(message))	{
+					curTopic = news.getTopic(); 
+
+				}
+			}
+		}
+		System.out.println(curTopic);  
+
+		return curTopic;
+
 	}
-	
-	
+
+	/** metodo che elimina le notizie meno recenti secondo la variabile DELETEBEFORE **/
 	public void deleteOldNews () throws SQLException	{
 
-
-		//java.util.Date date= new java.util.Date();
 
 
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, DELETEBEFORE);
 		long x = cal.getTimeInMillis();
 
-		//System.out.println(cal.DAY_OF_YEAR);
+
 
 		String templateCheck = "Delete from News where date < ?";
 		PreparedStatement statCheck = con.prepareStatement(templateCheck);
@@ -80,13 +84,12 @@ public class NewsCollector {
 
 		statCheck.executeUpdate();
 		statCheck.close();
-		
+
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
 
 }
