@@ -111,7 +111,7 @@ public class UserManagement {
 		rs = statCheck.executeQuery();
 		if(rs.next()){
 
-			System.out.println(rs.getString("password"));
+			//System.out.println(rs.getString("password"));
 
 			/* decriptazione della password immessa */
 			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
@@ -120,6 +120,7 @@ public class UserManagement {
 			if(passwordEncryptor.checkPassword(password, rs.getString("password"))){ 
 				statCheck.close();
 				con.close();
+				System.out.println("utente " + email + " correttamente loggato");
 				return true;  
 			}
 

@@ -43,11 +43,11 @@ public class ServletLogin extends HttpServlet {
 
 		String e = request.getParameter("email");  
 
-		System.out.println(e);
+		//System.out.println(e);
 
 		String p = request.getParameter("password");
 
-		System.out.println(p);
+		//System.out.println(p);
 
 		if (request.getParameter("login") != null) {
 			try {
