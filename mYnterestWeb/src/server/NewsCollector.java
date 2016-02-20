@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -17,6 +18,7 @@ import javax.xml.stream.XMLStreamException;
 public class NewsCollector {
 
 	final static int DELETEBEFORE = -2;
+	final static long TWODAYSMILLIS = 1000*60*60*24*2;
 	private Connection con;
 	private News news;
 
@@ -55,7 +57,11 @@ public class NewsCollector {
 		/* scorriamo tutte le notizie all'interno di un feed */	    
 		if(feed != null)	{
 			for (FeedMessage message : feed.getMessages()) { 
-				if (sf.storeNews(message))	{
+				
+				Timestamp tmp = new Timestamp(System.currentTimeMillis() - TWODAYSMILLIS);
+				
+				/* se la notizia è più vecchia di 2 giorni la salviamo ma non aggiorniamo curTopic */
+				if (sf.storeNews(message) && Conversion.dateConvert(message.getPubDate()).after(tmp))	{
 					curTopic = news.getTopic(); 
 
 				}
