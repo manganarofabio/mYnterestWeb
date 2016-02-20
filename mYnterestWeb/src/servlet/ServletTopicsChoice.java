@@ -39,6 +39,7 @@ public class ServletTopicsChoice extends HttpServlet {
 
 		boolean flagEmail = false;
 		boolean flag = false;
+		boolean succes = false;
 
 		ArrayList<String> topicsList = new ArrayList<String>();
 
@@ -56,12 +57,6 @@ public class ServletTopicsChoice extends HttpServlet {
 		if(n != null)
 			flagEmail = true;
 
-		try {
-			UserManagement.createtUser(e, p, flagEmail);
-		} catch (Throwable e1) {
-
-			e1.printStackTrace();
-		}
 
 
 		String sport = request.getParameter("sport");
@@ -97,9 +92,21 @@ public class ServletTopicsChoice extends HttpServlet {
 			flag = true;
 			topicsList.add("esteri");
 		}
+		
+		System.out.println("il flag è: "+ flag);
+
+		if(flag){
+
+			try {
+				succes = UserManagement.createtUser(e, p, flagEmail);
+			} catch (Throwable e1) {
+
+				e1.printStackTrace();
+			}
+		}
 
 		try {
-			if(flag && UserManagement.addTopics(e, topicsList)){
+			if(succes && UserManagement.addTopics(e, topicsList)){
 
 				request.setAttribute("email", e);
 				request.getRequestDispatcher("/news.jsp").forward(request, response);

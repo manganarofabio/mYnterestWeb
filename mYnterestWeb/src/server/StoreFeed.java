@@ -14,11 +14,8 @@ import java.text.ParseException;
  */
 public class StoreFeed {
 
-
-	private FeedMessage message;
 	private Connection con;
-	private ResultSet rs;
-
+	
 	/** costruttore **/
 	public StoreFeed (Connection con)	{
 		this.con=con;
@@ -26,6 +23,8 @@ public class StoreFeed {
 
 	/** metodo che memorizza nel db una notizia **/
 	public boolean storeNews (FeedMessage message) throws SQLException, ParseException	{
+		
+		ResultSet rs = null;
 
 		String templateCheck = "Select link from News where link = ?";
 		PreparedStatement statCheck = con.prepareStatement(templateCheck);
