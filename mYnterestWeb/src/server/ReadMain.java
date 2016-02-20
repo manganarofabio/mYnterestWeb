@@ -28,14 +28,14 @@ import NaiveBayesClassifier.TrainingFile;
 public class ReadMain implements Runnable {
 
 
-	/* tempo che il server aspetta prima di aggiornare le notizie == 1 giorno */
-	final static long TIMER = 24*60*60*1000;  
+	/* tempo che il server aspetta prima di aggiornare le notizie == 12 ore */
+	final static long TIMER = 12*60*60*1000;  
 
-	static NewsCollector nc;
+	private NewsCollector nc;
 
-	static Connection con;
+	private Connection con;
 
-	static ArrayList<News> myNews = new ArrayList<News>();
+	private ArrayList<News> myNews = new ArrayList<News>();
 
 
 

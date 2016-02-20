@@ -71,7 +71,7 @@
 
 						<div class="6u$ 12u$(small)">
 							<input type="checkbox" id="notifica" name="notifica"> <label
-								for="notifica">Notifica via email</label>
+								for="notifica">Desidero ricevere Email di aggiornamento per nuove notizie</label>
 						</div>
 
 

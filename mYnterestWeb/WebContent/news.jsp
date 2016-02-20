@@ -37,7 +37,7 @@
 
 							<form action="ServletOptions" method="post">
 								<fieldset>
-									<br> <input type="submit" value="Options"
+									<br> <input type="submit" value="Impostazioni"
 										class="button special" />
 									<% String hiddenE = (String) request.getAttribute("email"); %>
 									<input type="hidden" name="email" value=<%=hiddenE %>>

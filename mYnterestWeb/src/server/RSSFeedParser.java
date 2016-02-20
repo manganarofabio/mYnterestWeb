@@ -32,10 +32,10 @@ public class RSSFeedParser {
 	static final String PUB_DATE = "pubDate";
 	static final String GUID = "guid";
 
-	String topic = "";
-	String source = "";
+	private String topic = "";
+	private String source = "";
 
-	final URL url;
+	private URL url;
 
 	/** costruttore **/
 	public RSSFeedParser(String feedUrl, String topic, String source) {

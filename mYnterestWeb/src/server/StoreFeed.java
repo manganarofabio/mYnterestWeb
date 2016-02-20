@@ -15,9 +15,9 @@ import java.text.ParseException;
 public class StoreFeed {
 
 
-	FeedMessage message;
-	Connection con;
-	ResultSet rs;
+	private FeedMessage message;
+	private Connection con;
+	private ResultSet rs;
 
 	/** costruttore **/
 	public StoreFeed (Connection con)	{
@@ -43,7 +43,8 @@ public class StoreFeed {
 				statInsert.setString(1,message.getTitle());
 				statInsert.setString(2,message.getDescription());
 				statInsert.setString(3,message.getLink());
-				statInsert.setString(4,message.getTopic());
+				/* getTopic() torna null se la notizia è senza topic (deve essere analizzata con il NaiveBayesClassifier) */
+				statInsert.setString(4,message.getTopic()); 
 				statInsert.setString(5,message.getSource());
 				statInsert.setTimestamp(6, Conversion.dateConvert(message.getPubDate()));
 
