@@ -43,15 +43,17 @@ public class ServletLogin extends HttpServlet {
 
 		String e = request.getParameter("email");  
 
-		//System.out.println(e);
+		/* System.out.println(e); */
 
 		String p = request.getParameter("password");
 
-		//System.out.println(p);
+		/* System.out.println(p); */
 
 		if (request.getParameter("login") != null) {
 			try {
 				if(UserManagement.logInUser(e, p)){  
+					
+					System.out.println(e + " correttamente loggato");
 
 					request.setAttribute("email", e);
 
@@ -76,9 +78,11 @@ public class ServletLogin extends HttpServlet {
 
 		}
 		else{
-			System.out.println("delete");
+			
 			try {
 				if(UserManagement.deleteUser(e, p)){  
+					
+					System.out.println(e + " eliminato");
 
 					out.print("Utente eliminato");  
 					RequestDispatcher rd=request.getRequestDispatcher("index.html");  

@@ -93,7 +93,7 @@ public class ServletTopicsChoice extends HttpServlet {
 			topicsList.add("esteri");
 		}
 		
-		System.out.println("il flag è: "+ flag);
+		System.out.println("selezione corretta");
 
 		if(flag){
 
@@ -107,6 +107,8 @@ public class ServletTopicsChoice extends HttpServlet {
 
 		try {
 			if(succes && UserManagement.addTopics(e, topicsList)){
+				
+				
 
 				request.setAttribute("email", e);
 				request.getRequestDispatcher("/news.jsp").forward(request, response);

@@ -53,7 +53,7 @@ public class TrainingFile {
 
 
 
-				String templateSelect = "select title, description, link from News where topic = ?";
+				String templateSelect = "select title, description from News where topic = ?";
 				PreparedStatement statSelect = con.prepareStatement(templateSelect);
 
 				statSelect.setString(1, key);
@@ -65,7 +65,7 @@ public class TrainingFile {
 
 				while(rs.next()){
 
-					pw.println(rs.getString("title") + " " + rs.getString("description") + " " + rs.getString("link"));
+					pw.println(rs.getString("title") + " " + rs.getString("description"));
 
 				}
 

@@ -42,15 +42,15 @@ public class ServletCreate extends HttpServlet {
 
 		String e = request.getParameter("email");  
 
-		System.out.println(e);
+		/* System.out.println(e); */
 
 		String p = request.getParameter("password");
 
-		System.out.println(p);
+		/* System.out.println(p); */
 
 		String rp = request.getParameter("repassword");
 
-		System.out.println(rp);
+		/* System.out.println(rp); */
 
 
 
@@ -64,7 +64,7 @@ public class ServletCreate extends HttpServlet {
 
 			try {
 				if(! UserManagement.checkUser(e)){
-
+					
 					request.setAttribute("email", e);
 					request.setAttribute("password", p);
 

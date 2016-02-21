@@ -71,6 +71,8 @@ public class UserManagement {
 
 			statCreate.setString(2,encryptedPassword);
 			statCreate.execute();
+			
+			System.out.println(email + " creato con successo");
 
 			statCreate.close();
 			con.close();
@@ -120,7 +122,7 @@ public class UserManagement {
 			if(passwordEncryptor.checkPassword(password, rs.getString("password"))){ 
 				statCheck.close();
 				con.close();
-				System.out.println("utente " + email + " correttamente loggato");
+				
 				return true;  
 			}
 
