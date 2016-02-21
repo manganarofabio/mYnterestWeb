@@ -14,7 +14,7 @@ public class UrlSetter {
 	public static ArrayList<News> setUrl ()	{
 
 		ArrayList<String> topicNull = new ArrayList<String>();
-		topicNull.add("http://www.repubblica.it/rss/homepage/rss2.0.xml?ref=HRF-1");
+		/* topicNull.add("http://www.repubblica.it/rss/homepage/rss2.0.xml?ref=HRF-1"); */
 		topicNull.add("http://www.ilsole24ore.com/rss/notizie/attualita.xml");
 		topicNull.add("http://www.avvenire.it/_layouts/Avvenire/feed.aspx?");
 		topicNull.add("http://www.ilfattoquotidiano.it/feed/");
